@@ -212,6 +212,116 @@
             gap: 8px;
         }
 
+        /* Article Navigation */
+        .article-navigation {
+            margin-top: 40px;
+            padding-top: 24px;
+            border-top: 2px solid #d0d7de;
+        }
+
+        .article-tags-section {
+            margin-bottom: 24px;
+        }
+
+        .article-tags-section h4 {
+            font-size: 16px;
+            font-weight: 600;
+            color: #24292f;
+            margin-bottom: 12px;
+        }
+
+        .navigation-buttons {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .nav-button {
+            padding: 10px 20px;
+            background-color: #0969da;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            text-align: center;
+            min-width: 120px;
+        }
+
+        .nav-button:hover {
+            background-color: #0550ae;
+            color: white;
+        }
+
+        .nav-button.disabled {
+            background-color: #8c959f;
+            cursor: not-allowed;
+        }
+
+        .nav-button.home {
+            background-color: #6f42c1;
+        }
+
+        .nav-button.home:hover {
+            background-color: #5a32a3;
+        }
+
+        /* Article Page Styles */
+        .article-page {
+            max-width: none;
+        }
+
+        .article-page .page-title {
+            font-size: 28px;
+            margin-bottom: 16px;
+        }
+
+        .article-page .article-meta {
+            font-size: 16px;
+            margin-bottom: 24px;
+            color: #656d76;
+        }
+
+        .article-content {
+            line-height: 1.8;
+            color: #24292f;
+        }
+
+        .article-content h3 {
+            color: #0969da;
+            margin-top: 32px;
+            margin-bottom: 16px;
+            font-size: 20px;
+        }
+
+        .article-content p {
+            margin-bottom: 16px;
+        }
+
+        .article-content ul {
+            margin-bottom: 16px;
+        }
+
+        .article-content li {
+            margin-bottom: 8px;
+        }
+
+        .article-content a {
+            color: #0969da;
+            text-decoration: none;
+        }
+
+        .article-content a:hover {
+            text-decoration: underline;
+        }
+
+        .article-content hr {
+            margin: 24px 0;
+            border: none;
+            border-top: 1px solid #d0d7de;
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             .container {
@@ -226,6 +336,11 @@
             
             .main-content {
                 margin-left: 0;
+                padding: 20px;
+            }
+
+            .modal-content {
+                width: 95%;
                 padding: 20px;
             }
         }
@@ -274,7 +389,7 @@
                         <a class="nav-link" onclick="showPage('biotech-companies')">生技藥廠公司文</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" onclick="showPage('dental')">植牙相關</a>
+                        <a class="nav-link" onclick="showPage('career')">職涯相關</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" onclick="showPage('life-chat')">生活閒聊</a>
@@ -304,7 +419,7 @@
                     <p><strong>業界新聞：</strong>生技醫藥產業的最新動態與重要消息</p>
                     <p><strong>研究發現：</strong>有趣的科學研究與學術發現</p>
                     <p><strong>生技藥廠公司文：</strong>重要企業的深度分析與介紹</p>
-                    <p><strong>職涯相關：</strong>一日生科，終身科科</p>
+                    <p><strong>職涯相關：</strong>職業發展、轉職經驗與職場心得分享</p>
                     <p><strong>生活閒聊：</strong>工作之餘的生活分享與心得</p>
                 </div>
             </div>
@@ -389,6 +504,7 @@
                     <div class="filter-group">
                         <h4>依研究領域分類</h4>
                         <div class="tag-list">
+                            <span class="tag" onclick="filterByTag('area', 'cultured-meat')">培養肉</span>
                             <span class="tag" onclick="filterByTag('area', 'biotechnology')">生物技術</span>
                             <span class="tag" onclick="filterByTag('area', 'genetics')">基因學</span>
                             <span class="tag" onclick="filterByTag('area', 'immunology')">免疫學</span>
@@ -407,8 +523,27 @@
                 </div>
 
                 <div class="article-grid" id="research-articles">
-                    <!-- Research articles will be populated here -->
-                    <div class="article-card">
+                    <!-- 韓國微壽司研究文章 -->
+                    <div class="article-card" data-tags="培養肉" data-date="2025-03-27">
+                        <h3 class="article-title">未來食物新浪潮：韓國微壽司 — 米粒大小的壽司</h3>
+                        <div class="article-meta">
+                            <span>2025-03-27</span>
+                            <span>研究發現</span>
+                            <span>8 min read</span>
+                        </div>
+                        <p class="article-summary">韓國延世大學研究團隊研發了富含蛋白質的「微牛肉壽司」，直接用牛肉細胞包裹米粒，創造出永續的替代性蛋白質食物。每100公克微壽司相當於100克米和1克牛肉的營養價值。</p>
+                        <div class="article-tags">
+                            <span class="tag">培養肉</span>
+                            <span class="tag">永續食物</span>
+                            <span class="tag">韓國延世大學</span>
+                        </div>
+                        <div style="margin-top: 16px;">
+                            <button onclick="showPage('korean-microsushi')" style="background: #0969da; color: white; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer;">閱讀全文</button>
+                        </div>
+                    </div>
+                    
+                    <!-- 範例研究文章 -->
+                    <div class="article-card" data-tags="生物技術,基因學" data-date="2024-03-10">
                         <h3 class="article-title">範例研究標題</h3>
                         <div class="article-meta">
                             <span>2024-03-10</span>
@@ -432,10 +567,105 @@
                 <p>生技藥廠公司文內容即將推出...</p>
             </div>
 
-            <div id="dental" class="page">
+            <!-- Korean Microsushi Article Page -->
+            <div id="korean-microsushi" class="page article-page">
+                <header class="page-header">
+                    <h1 class="page-title">未來食物新浪潮：韓國微壽司 — 米粒大小的壽司</h1>
+                    <div class="article-meta">
+                        <span>2025-03-27</span>
+                        <span>研究發現</span>
+                        <span>8 min read</span>
+                    </div>
+                </header>
+                
+                <div class="article-content">
+                    <h3>▋永續以及未來食物</h3>
+                    <p>根據聯合國網站，永續食物(sustainable food system, SFS)分為三個面向：</p>
+                    <ul style="margin-left: 20px; margin-bottom: 15px;">
+                        <li><strong>經濟永續(Economic sustainability)：</strong>可以賺錢，有足夠的食物等等。</li>
+                        <li><strong>社會永續(Social sustainability)：</strong>對社會有益，包括勞工權益和動物福祉等等。</li>
+                        <li><strong>環境永續(Environmental sustainability)：</strong>和對環境的影響很低，或是有正面影響。</li>
+                    </ul>
+                    <p>由於永續議題興起，有些食材和食物開始流行了起來，包括植物肉、培養肉之類的替代性蛋白質等等。</p>
+                    
+                    <p>替代性蛋白質中，較有名的大概是 Beyond Meat，可能有人以為這是培養肉(cultured meat)，但其實它是植物性肉類(plant-based meat)。目前上市的培養肉公司有 UPSIDE Food 和 GOOD Meat，培養肉市場預估在 2034 年的時候可達到 $1.1B 美元。</p>
+                    
+                    <p>除了培養肉和植物性肉類外，另一個則是昆蟲類蛋白質(insect-derived proteins)，市面上販售的主要是蟋蟀相關產品，例如蟋蟀蛋白粉或是蟋蟀能量棒等等。</p>
+                    
+                    <p>我覺得比較特別的是 3D 列印食物(3D-printed foods)，其中一家公司 Foodini 是採用訂閱制，可以跟它租 3D 列印的機器，每個月 $580 美元，如果租的時間就長，每月的費用就比單月租少，在日本等等沒有提供月租制的國家則是可以直接買機器。</p>
+
+                    <h3>▋微壽司 — 另類培養肉</h3>
+                    <p>雖然培養肉算是個熱門議題，也有不少公司在做培養肉，之前韓劇「支配物種」就是講關於培養肉的。</p>
+                    
+                    <p>不過，培養出一整塊的牛肉太麻煩又太費時了，韓國延世大學的研究團隊研發了一款富含蛋白質的「微牛肉壽司」，直接用牛肉細胞去包裹米粒。除了牛肉細胞、還可以用其他細胞，看你想吃啥就用什麼細胞去包米。</p>
+                    
+                    <p>他們首先用魚的膠質裹住米粒，然後鋪在培養皿中，再把牛的肌肉細胞和脂肪細胞丟進去，讓它們附著在米粒表面生長，也試了不同種類的細胞。之後，測量了這種微壽司的營養成分，結果是每吃 100 公克的微壽司相當於吃進 100 克的米和 1 克的牛肉。</p>
+
+                    <h3>🌾 米的準備</h3>
+                    <p>他們用米是韓國本地產的，把魚膠溶液和轉谷氨酰胺酶以 1:1 的比例混合後，在 45°C 的溫度下攪拌 15 分鐘，然後把米加進去再攪拌 5 分鐘，在常溫下靜置 10 分鐘，把冰在冰箱 12 個小時。</p>
+                    
+                    <p>基於永續的因素，他們選擇魚類的膠質而非動物的，魚類的比較便宜但是相對比較不穩定。轉谷氨酰胺酶(microbial transglutaminase)是用日本味之素(Ajinomoto)出產的，是個常見的食品添加酵素，可以把膠質中 glutamine 和 lysine 側鏈之間形成共價鍵，同時也可以幫助澱粉和膠之間的結合，並增強米的穩定度。</p>
+
+                    <h3>🧫 肉的培養和分化</h3>
+                    <p>牛細胞的來源是 29-31 個月大的韓牛肌肉和脂肪。</p>
+                    
+                    <p>消毒過的米粒放在培養盤中，然後分別把 myoblast 和 adMSCs 細胞加進去，先培養 18 個小時讓細胞黏著在米粒上後，轉移到新的培養皿中再養個 5 到 7 天讓它增生，每天換培養液，之後讓它分化。</p>
+                    
+                    <ul style="margin-left: 20px; margin-bottom: 15px;">
+                        <li>肌肉培養成 myoblast，然後分化成 myotubes 或是 myofibres</li>
+                        <li>脂肪組織培養成 adMSCs，然後分化成脂肪細胞(adipocyte)</li>
+                    </ul>
+                    
+                    <p>細胞分化好後，把包覆有分化細胞的米粒洗一洗以去掉培養液和一些雜質，接著把水倒掉，加入兩倍的水，微波 2 分鐘，常溫 5 分鐘，再重複一次。</p>
+
+                    <h3>🍣 微壽司的營養成分</h3>
+                    <p>在比較了不同細胞和培養條件後，他們發現：</p>
+                    <ul style="margin-left: 20px; margin-bottom: 15px;">
+                        <li>細胞在有魚膠包覆的米粒上分化的比較好：米在潮濕的環境或是放久了，會因為米本身的酵素導致結構崩壞，變得粉粉或爛爛的，但是魚膠包裹後形成的連結(bonding)會增加結構穩定性。</li>
+                        <li>myoblast 在有魚膠包覆的米粒上繁殖的比較好，細胞的密度比較高，adMSC 則沒太大差別。</li>
+                        <li>肌肉細胞裡 actin 和 mysoin 加熱後會因為 denature 的關係，口感會比較硬和脆，因為澱粉鍊較短，所以也比較不黏。</li>
+                        <li>微壽司所含的碳水化合物、蛋白質和脂肪都比純米要高，碳水化合物多了 0.16 g，蛋白質多了 310 mg，脂肪則多了 10 mg。</li>
+                    </ul>
+                    
+                    <p>價格上的話，他們估計這種微壽司米每公斤的批發價只會比普通米貴 $0.03 美元。</p>
+                    
+                    <p><strong>大家會想直接吃肉配飯，還是會想吃這種微壽司呢？</strong></p>
+                    
+                    <hr style="margin: 24px 0; border: none; border-top: 1px solid #d0d7de;">
+                    
+                    <h3>📚 參考資料</h3>
+                    <p><strong>Articles:</strong></p>
+                    <p><a href="https://openknowledge.fao.org/server/api/core/bitstreams/b620989c-407b-4caf-a152-f790f55fec71/content" target="_blank">Sustainable food systems - FAO</a></p>
+                    <p><a href="https://www.nature.com/articles/d41586-024-00398-w" target="_blank">Introducing meat–rice: grain with added muscles beefs up protein - Nature</a></p>
+                    <p><a href="https://www.science.org/content/article/rice-covered-cow-cells-aims-provide-nutritious-sustainable-food" target="_blank">Rice covered in cow cells aims to provide nutritious, sustainable food - Science</a></p>
+                    
+                    <p><strong>Publication:</strong></p>
+                    <p>S Park, M Lee, S Jung et al. Rice grains integrated with animal cells: A shortcut to a sustainable food system. Matter (2024) <br>
+                    DOI: <a href="https://www.cell.com/matter/abstract/S2590-2385%2824%2900016-X" target="_blank">10.1016/j.matt.2024.01.015</a></p>
+                </div>
+
+                <div class="article-navigation">
+                    <div class="article-tags-section">
+                        <h4>文章標籤</h4>
+                        <div class="article-tags">
+                            <span class="tag">培養肉</span>
+                            <span class="tag">永續食物</span>
+                            <span class="tag">韓國延世大學</span>
+                        </div>
+                    </div>
+                    
+                    <div class="navigation-buttons">
+                        <a href="#" onclick="showPage('research')" class="nav-button home">回研究發現首頁</a>
+                        <a href="#" onclick="navigateArticle('prev')" class="nav-button disabled">上一篇</a>
+                        <a href="#" onclick="navigateArticle('next')" class="nav-button disabled">下一篇</a>
+                    </div>
+                </div>
+            </div>
+
+            <div id="career" class="page">
                 <header class="page-header">
                     <h1 class="page-title">職涯相關</h1>
-                    <p class="page-description">關於一日生科，終身科科。</p>
+                    <p class="page-description">職業發展、轉職經驗與職場心得分享</p>
                 </header>
                 <p>職涯相關內容即將推出...</p>
             </div>
@@ -450,7 +680,106 @@
         </main>
     </div>
 
+    <!-- Modal for Full Articles -->
+    <div id="articleModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle" class="modal-title"></h2>
+                <button class="close" onclick="closeModal()">&times;</button>
+            </div>
+            <div id="modalBody" class="modal-body"></div>
+        </div>
+    </div>
+
     <script>
+        // Research articles order for navigation
+        const researchArticles = [
+            'korean-microsushi'
+            // Add more article IDs here as you create them
+        ];
+
+        // Page navigation
+        function showPage(pageId) {
+            // Hide all pages
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => page.classList.remove('active'));
+            
+            // Remove active class from all nav links
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => link.classList.remove('active'));
+            
+            // Show selected page
+            document.getElementById(pageId).classList.add('active');
+            
+            // Add active class to appropriate nav link
+            if (pageId === 'korean-microsushi') {
+                // For article pages, highlight the parent section
+                document.querySelector('[onclick="showPage(\'research\')"]').classList.add('active');
+            } else {
+                // For regular pages, highlight the clicked link
+                document.querySelector(`[onclick="showPage('${pageId}')"]`).classList.add('active');
+            }
+        }
+
+        // Article navigation
+        function navigateArticle(direction) {
+            const currentPage = document.querySelector('.page.active').id;
+            const currentIndex = researchArticles.indexOf(currentPage);
+            
+            if (direction === 'prev' && currentIndex > 0) {
+                showPage(researchArticles[currentIndex - 1]);
+            } else if (direction === 'next' && currentIndex < researchArticles.length - 1) {
+                showPage(researchArticles[currentIndex + 1]);
+            }
+        }
+
+        // Filter functionality
+        function filterByTag(type, value) {
+            console.log(`Filtering by ${type}: ${value}`);
+            // Add your filtering logic here
+            
+            // Toggle active state on tags
+            const clickedTag = event.target;
+            clickedTag.classList.toggle('active');
+        }
+
+        // Sort functionality
+        function sortByDate(order) {
+            console.log(`Sorting by date: ${order}`);
+            // Add your sorting logic here
+            
+            // Toggle active state on tags
+            const clickedTag = event.target;
+            const parentGroup = clickedTag.closest('.filter-group');
+            const tags = parentGroup.querySelectorAll('.tag');
+            tags.forEach(tag => tag.classList.remove('active'));
+            clickedTag.classList.add('active');
+        }
+    </script><li>細胞在有魚膠包覆的米粒上分化的比較好：米在潮濕的環境或是放久了，會因為米本身的酵素導致結構崩壞，變得粉粉或爛爛的，但是魚膠包裹後形成的連結(bonding)會增加結構穩定性。</li>
+                        <li>myoblast 在有魚膠包覆的米粒上繁殖的比較好，細胞的密度比較高，adMSC 則沒太大差別。</li>
+                        <li>肌肉細胞裡 actin 和 mysoin 加熱後會因為 denature 的關係，口感會比較硬和脆，因為澱粉鍊較短，所以也比較不黏。</li>
+                        <li>微壽司所含的碳水化合物、蛋白質和脂肪都比純米要高，碳水化合物多了 0.16 g，蛋白質多了 310 mg，脂肪則多了 10 mg。</li>
+                    </ul>
+                    
+                    <p>價格上的話，他們估計這種微壽司米每公斤的批發價只會比普通米貴 $0.03 美元。</p>
+                    
+                    <p><strong>大家會想直接吃肉配飯，還是會想吃這種微壽司呢？</strong></p>
+                    
+                    <hr style="margin: 20px 0; border: none; border-top: 1px solid #d0d7de;">
+                    
+                    <h3>📚 參考資料</h3>
+                    <p><strong>Articles:</strong></p>
+                    <p><a href="https://openknowledge.fao.org/server/api/core/bitstreams/b620989c-407b-4caf-a152-f790f55fec71/content" target="_blank">Sustainable food systems - FAO</a></p>
+                    <p><a href="https://www.nature.com/articles/d41586-024-00398-w" target="_blank">Introducing meat–rice: grain with added muscles beefs up protein - Nature</a></p>
+                    <p><a href="https://www.science.org/content/article/rice-covered-cow-cells-aims-provide-nutritious-sustainable-food" target="_blank">Rice covered in cow cells aims to provide nutritious, sustainable food - Science</a></p>
+                    
+                    <p><strong>Publication:</strong></p>
+                    <p>S Park, M Lee, S Jung et al. Rice grains integrated with animal cells: A shortcut to a sustainable food system. Matter (2024) <br>
+                    DOI: <a href="https://www.cell.com/matter/abstract/S2590-2385%2824%2900016-X" target="_blank">10.1016/j.matt.2024.01.015</a></p>
+                `
+            }
+        };
+
         // Page navigation
         function showPage(pageId) {
             // Hide all pages
@@ -466,6 +795,29 @@
             
             // Add active class to clicked nav link
             event.target.classList.add('active');
+        }
+
+        // Show full article content
+        function showArticleContent(articleId) {
+            const article = articleDatabase[articleId];
+            if (article) {
+                document.getElementById('modalTitle').textContent = article.title;
+                document.getElementById('modalBody').innerHTML = article.content;
+                document.getElementById('articleModal').style.display = 'flex';
+            }
+        }
+
+        // Close modal
+        function closeModal() {
+            document.getElementById('articleModal').style.display = 'none';
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('articleModal');
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
         }
 
         // Filter functionality
