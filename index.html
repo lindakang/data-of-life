@@ -1,16 +1,495 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-TW">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>不專業學術閒聊 - 生科社畜的科學閒聊</title>
     <meta name="description" content="這邊會寫一些我覺得有趣的科學新聞、值得關注的業界新聞，或是我有興趣的公司介紹文，不然就是一些生活閒聊。" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: #24292f;
+            background-color: #ffffff;
+        }
+
+        .container {
+            display: flex;
+            min-height: 100vh;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Left Sidebar */
+        .sidebar {
+            width: 280px;
+            background-color: #f6f8fa;
+            border-right: 1px solid #d0d7de;
+            padding: 20px;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+        }
+
+        .logo {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .logo h1 {
+            font-size: 24px;
+            color: #0969da;
+            margin-bottom: 8px;
+        }
+
+        .logo p {
+            font-size: 14px;
+            color: #656d76;
+        }
+
+        .nav-menu {
+            list-style: none;
+        }
+
+        .nav-item {
+            margin-bottom: 8px;
+        }
+
+        .nav-link {
+            display: block;
+            padding: 12px 16px;
+            color: #24292f;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            background-color: #0969da;
+            color: white;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            margin-left: 280px;
+            padding: 20px 40px;
+        }
+
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        .page-header {
+            margin-bottom: 30px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid #d0d7de;
+        }
+
+        .page-title {
+            font-size: 32px;
+            font-weight: 600;
+            color: #24292f;
+            margin-bottom: 8px;
+        }
+
+        .page-description {
+            color: #656d76;
+            font-size: 16px;
+        }
+
+        /* Filter Section */
+        .filter-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            background-color: #f6f8fa;
+            border-radius: 8px;
+            border: 1px solid #d0d7de;
+        }
+
+        .filter-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: #24292f;
+        }
+
+        .filter-group {
+            margin-bottom: 20px;
+        }
+
+        .filter-group h4 {
+            font-size: 14px;
+            font-weight: 600;
+            color: #656d76;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+
+        .tag-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .tag {
+            padding: 4px 12px;
+            background-color: #ddf4ff;
+            color: #0969da;
+            border: 1px solid #54aeff;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .tag:hover {
+            background-color: #0969da;
+            color: white;
+        }
+
+        .tag.active {
+            background-color: #0969da;
+            color: white;
+        }
+
+        /* Article Cards */
+        .article-grid {
+            display: grid;
+            gap: 24px;
+        }
+
+        .article-card {
+            background: white;
+            border: 1px solid #d0d7de;
+            border-radius: 8px;
+            padding: 24px;
+            transition: all 0.2s ease;
+        }
+
+        .article-card:hover {
+            border-color: #0969da;
+            box-shadow: 0 3px 12px rgba(9, 105, 218, 0.1);
+        }
+
+        .article-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #24292f;
+            margin-bottom: 8px;
+        }
+
+        .article-meta {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 12px;
+            font-size: 14px;
+            color: #656d76;
+        }
+
+        .article-summary {
+            color: #24292f;
+            margin-bottom: 16px;
+            line-height: 1.5;
+        }
+
+        .article-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: static;
+            }
+            
+            .main-content {
+                margin-left: 0;
+                padding: 20px;
+            }
+        }
+
+        /* Introduction Section */
+        .intro-section {
+            background: linear-gradient(135deg, #f6f8fa 0%, #fff 100%);
+            border: 1px solid #d0d7de;
+            border-radius: 8px;
+            padding: 32px;
+            margin-bottom: 24px;
+        }
+
+        .intro-section h2 {
+            color: #0969da;
+            margin-bottom: 16px;
+        }
+
+        .intro-section p {
+            margin-bottom: 16px;
+            color: #24292f;
+        }
+    </style>
 </head>
 <body>
-    <h1>不專業學術閒聊</h1>
-    <p>生科社畜的科學閒聊</p>
-    <p>這邊會寫一些我覺得有趣的科學新聞、值得關注的業界新聞，或是我有興趣的公司介紹文，不然就是一些生活閒聊。</p>
-    
-    <!-- Your content here -->
+    <div class="container">
+        <!-- Left Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">
+                <h1>不專業學術閒聊</h1>
+                <p>生科社畜的科學閒聊</p>
+            </div>
+            
+            <nav>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a class="nav-link active" onclick="showPage('home')">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" onclick="showPage('industry-news')">業界新聞</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" onclick="showPage('research')">研究發現</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" onclick="showPage('biotech-companies')">生技藥廠公司文</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" onclick="showPage('dental')">植牙相關</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" onclick="showPage('life-chat')">生活閒聊</a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Home Page -->
+            <div id="home" class="page active">
+                <header class="page-header">
+                    <h1 class="page-title">歡迎來到不專業學術閒聊</h1>
+                    <p class="page-description">生科社畜的科學世界探索之旅</p>
+                </header>
+                
+                <div class="intro-section">
+                    <h2>關於這個 GitHub Page</h2>
+                    <p>歡迎來到我的科學閒聊小天地！這裡會分享一些我覺得有趣的科學新聞、值得關注的業界動態，或是我有興趣的公司介紹文。</p>
+                    <p>身為一個生科領域的社畜，我希望能透過這個平台分享一些專業知識，同時也記錄一些生活感想。</p>
+                    <p>無論你是同行、學生，還是單純對科學有興趣的朋友，都歡迎一起來交流討論！</p>
+                </div>
+
+                <div class="intro-section">
+                    <h2>內容分類</h2>
+                    <p><strong>業界新聞：</strong>生技醫藥產業的最新動態與重要消息</p>
+                    <p><strong>研究發現：</strong>有趣的科學研究與學術發現</p>
+                    <p><strong>生技藥廠公司文：</strong>重要企業的深度分析與介紹</p>
+                    <p><strong>職涯相關：</strong>一日生科，終身科科</p>
+                    <p><strong>生活閒聊：</strong>工作之餘的生活分享與心得</p>
+                </div>
+            </div>
+
+            <!-- Industry News Page -->
+            <div id="industry-news" class="page">
+                <header class="page-header">
+                    <h1 class="page-title">業界新聞</h1>
+                    <p class="page-description">生技醫藥產業的最新動態與重要消息</p>
+                </header>
+                
+                <div class="filter-section">
+                    <h3 class="filter-title">篩選新聞</h3>
+                    
+                    <div class="filter-group">
+                        <h4>依公司分類</h4>
+                        <div class="tag-list">
+                            <span class="tag" onclick="filterByTag('company', 'pfizer')">Pfizer</span>
+                            <span class="tag" onclick="filterByTag('company', 'moderna')">Moderna</span>
+                            <span class="tag" onclick="filterByTag('company', 'roche')">Roche</span>
+                            <span class="tag" onclick="filterByTag('company', 'novartis')">Novartis</span>
+                            <span class="tag" onclick="filterByTag('company', 'johnson-johnson')">Johnson & Johnson</span>
+                        </div>
+                    </div>
+
+                    <div class="filter-group">
+                        <h4>依藥物分類</h4>
+                        <div class="tag-list">
+                            <span class="tag" onclick="filterByTag('drug', 'covid-vaccine')">COVID疫苗</span>
+                            <span class="tag" onclick="filterByTag('drug', 'cancer-drug')">癌症藥物</span>
+                            <span class="tag" onclick="filterByTag('drug', 'diabetes-drug')">糖尿病藥物</span>
+                            <span class="tag" onclick="filterByTag('drug', 'alzheimer-drug')">阿茲海默症藥物</span>
+                        </div>
+                    </div>
+
+                    <div class="filter-group">
+                        <h4>依疾病分類</h4>
+                        <div class="tag-list">
+                            <span class="tag" onclick="filterByTag('disease', 'cancer')">癌症</span>
+                            <span class="tag" onclick="filterByTag('disease', 'diabetes')">糖尿病</span>
+                            <span class="tag" onclick="filterByTag('disease', 'alzheimer')">阿茲海默症</span>
+                            <span class="tag" onclick="filterByTag('disease', 'covid')">COVID-19</span>
+                        </div>
+                    </div>
+
+                    <div class="filter-group">
+                        <h4>依日期排序</h4>
+                        <div class="tag-list">
+                            <span class="tag" onclick="sortByDate('newest')">最新消息</span>
+                            <span class="tag" onclick="sortByDate('oldest')">較舊消息</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="article-grid" id="industry-articles">
+                    <!-- Articles will be populated here -->
+                    <div class="article-card">
+                        <h3 class="article-title">範例新聞標題</h3>
+                        <div class="article-meta">
+                            <span>2024-03-15</span>
+                            <span>業界新聞</span>
+                        </div>
+                        <p class="article-summary">這是一個範例新聞摘要，展示文章的主要內容...</p>
+                        <div class="article-tags">
+                            <span class="tag">Pfizer</span>
+                            <span class="tag">COVID疫苗</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Research Page -->
+            <div id="research" class="page">
+                <header class="page-header">
+                    <h1 class="page-title">研究發現</h1>
+                    <p class="page-description">有趣的科學研究與學術發現</p>
+                </header>
+                
+                <div class="filter-section">
+                    <h3 class="filter-title">篩選研究</h3>
+                    
+                    <div class="filter-group">
+                        <h4>依研究領域分類</h4>
+                        <div class="tag-list">
+                            <span class="tag" onclick="filterByTag('area', 'biotechnology')">生物技術</span>
+                            <span class="tag" onclick="filterByTag('area', 'genetics')">基因學</span>
+                            <span class="tag" onclick="filterByTag('area', 'immunology')">免疫學</span>
+                            <span class="tag" onclick="filterByTag('area', 'neuroscience')">神經科學</span>
+                            <span class="tag" onclick="filterByTag('area', 'oncology')">腫瘤學</span>
+                        </div>
+                    </div>
+
+                    <div class="filter-group">
+                        <h4>依日期排序</h4>
+                        <div class="tag-list">
+                            <span class="tag" onclick="sortByDate('newest')">最新研究</span>
+                            <span class="tag" onclick="sortByDate('oldest')">較舊研究</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="article-grid" id="research-articles">
+                    <!-- Research articles will be populated here -->
+                    <div class="article-card">
+                        <h3 class="article-title">範例研究標題</h3>
+                        <div class="article-meta">
+                            <span>2024-03-10</span>
+                            <span>研究發現</span>
+                        </div>
+                        <p class="article-summary">這是一個範例研究摘要，介紹研究的主要發現和意義...</p>
+                        <div class="article-tags">
+                            <span class="tag">生物技術</span>
+                            <span class="tag">基因學</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Other pages would follow similar structure -->
+            <div id="biotech-companies" class="page">
+                <header class="page-header">
+                    <h1 class="page-title">生技藥廠公司文</h1>
+                    <p class="page-description">重要企業的深度分析與介紹</p>
+                </header>
+                <p>生技藥廠公司文內容即將推出...</p>
+            </div>
+
+            <div id="dental" class="page">
+                <header class="page-header">
+                    <h1 class="page-title">職涯相關</h1>
+                    <p class="page-description">關於一日生科，終身科科。</p>
+                </header>
+                <p>職涯相關內容即將推出...</p>
+            </div>
+
+            <div id="life-chat" class="page">
+                <header class="page-header">
+                    <h1 class="page-title">生活閒聊</h1>
+                    <p class="page-description">工作之餘的生活分享與心得</p>
+                </header>
+                <p>生活閒聊內容即將推出...</p>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Page navigation
+        function showPage(pageId) {
+            // Hide all pages
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => page.classList.remove('active'));
+            
+            // Remove active class from all nav links
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => link.classList.remove('active'));
+            
+            // Show selected page
+            document.getElementById(pageId).classList.add('active');
+            
+            // Add active class to clicked nav link
+            event.target.classList.add('active');
+        }
+
+        // Filter functionality
+        function filterByTag(type, value) {
+            console.log(`Filtering by ${type}: ${value}`);
+            // Add your filtering logic here
+            
+            // Toggle active state on tags
+            const clickedTag = event.target;
+            clickedTag.classList.toggle('active');
+        }
+
+        // Sort functionality
+        function sortByDate(order) {
+            console.log(`Sorting by date: ${order}`);
+            // Add your sorting logic here
+            
+            // Toggle active state on tags
+            const clickedTag = event.target;
+            const parentGroup = clickedTag.closest('.filter-group');
+            const tags = parentGroup.querySelectorAll('.tag');
+            tags.forEach(tag => tag.classList.remove('active'));
+            clickedTag.classList.add('active');
+        }
+    </script>
 </body>
 </html>
