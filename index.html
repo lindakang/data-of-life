@@ -178,6 +178,7 @@
             border-radius: 8px;
             padding: 24px;
             transition: all 0.2s ease;
+            cursor: pointer;
         }
 
         .article-card:hover {
@@ -212,59 +213,21 @@
             gap: 8px;
         }
 
-        /* Article Navigation */
-        .article-navigation {
-            margin-top: 40px;
-            padding-top: 24px;
-            border-top: 2px solid #d0d7de;
-        }
-
-        .article-tags-section {
-            margin-bottom: 24px;
-        }
-
-        .article-tags-section h4 {
-            font-size: 16px;
-            font-weight: 600;
-            color: #24292f;
-            margin-bottom: 12px;
-        }
-
-        .navigation-buttons {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 16px;
-        }
-
-        .nav-button {
-            padding: 10px 20px;
-            background-color: #0969da;
-            color: white;
-            text-decoration: none;
-            border-radius: 6px;
-            font-weight: 500;
-            transition: all 0.2s ease;
+        /* Loading State */
+        .loading {
             text-align: center;
-            min-width: 120px;
+            padding: 40px;
+            color: #656d76;
         }
 
-        .nav-button:hover {
-            background-color: #0550ae;
-            color: white;
-        }
-
-        .nav-button.disabled {
-            background-color: #8c959f;
-            cursor: not-allowed;
-        }
-
-        .nav-button.home {
-            background-color: #6f42c1;
-        }
-
-        .nav-button.home:hover {
-            background-color: #5a32a3;
+        .error {
+            text-align: center;
+            padding: 40px;
+            color: #cf222e;
+            background-color: #ffebee;
+            border: 1px solid #ff9999;
+            border-radius: 8px;
+            margin: 20px 0;
         }
 
         /* Article Page Styles */
@@ -322,27 +285,61 @@
             border-top: 1px solid #d0d7de;
         }
 
-        /* Responsive */
-        @media (max-width: 768px) {
-            .container {
-                flex-direction: column;
-            }
-            
-            .sidebar {
-                width: 100%;
-                height: auto;
-                position: static;
-            }
-            
-            .main-content {
-                margin-left: 0;
-                padding: 20px;
-            }
+        /* Article Navigation */
+        .article-navigation {
+            margin-top: 40px;
+            padding-top: 24px;
+            border-top: 2px solid #d0d7de;
+        }
 
-            .modal-content {
-                width: 95%;
-                padding: 20px;
-            }
+        .article-tags-section {
+            margin-bottom: 24px;
+        }
+
+        .article-tags-section h4 {
+            font-size: 16px;
+            font-weight: 600;
+            color: #24292f;
+            margin-bottom: 12px;
+        }
+
+        .navigation-buttons {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .nav-button {
+            padding: 10px 20px;
+            background-color: #0969da;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            text-align: center;
+            min-width: 120px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .nav-button:hover {
+            background-color: #0550ae;
+            color: white;
+        }
+
+        .nav-button.disabled {
+            background-color: #8c959f;
+            cursor: not-allowed;
+        }
+
+        .nav-button.home {
+            background-color: #6f42c1;
+        }
+
+        .nav-button.home:hover {
+            background-color: #5a32a3;
         }
 
         /* Introduction Section */
@@ -362,6 +359,24 @@
         .intro-section p {
             margin-bottom: 16px;
             color: #24292f;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: static;
+            }
+            
+            .main-content {
+                margin-left: 0;
+                padding: 20px;
+            }
         }
     </style>
 </head>
@@ -475,19 +490,7 @@
                 </div>
 
                 <div class="article-grid" id="industry-articles">
-                    <!-- Articles will be populated here -->
-                    <div class="article-card">
-                        <h3 class="article-title">範例新聞標題</h3>
-                        <div class="article-meta">
-                            <span>2024-03-15</span>
-                            <span>業界新聞</span>
-                        </div>
-                        <p class="article-summary">這是一個範例新聞摘要，展示文章的主要內容...</p>
-                        <div class="article-tags">
-                            <span class="tag">Pfizer</span>
-                            <span class="tag">COVID疫苗</span>
-                        </div>
-                    </div>
+                    <div class="loading">載入中...</div>
                 </div>
             </div>
 
@@ -523,62 +526,247 @@
                 </div>
 
                 <div class="article-grid" id="research-articles">
-                    <!-- 韓國微壽司研究文章 -->
-                    <div class="article-card" data-tags="培養肉" data-date="2025-03-27">
-                        <h3 class="article-title">未來食物新浪潮：韓國微壽司 — 米粒大小的壽司</h3>
-                        <div class="article-meta">
-                            <span>2025-03-27</span>
-                            <span>研究發現</span>
-                            <span>8 min read</span>
-                        </div>
-                        <p class="article-summary">韓國延世大學研究團隊研發了富含蛋白質的「微牛肉壽司」，直接用牛肉細胞包裹米粒，創造出永續的替代性蛋白質食物。每100公克微壽司相當於100克米和1克牛肉的營養價值。</p>
-                        <div class="article-tags">
-                            <span class="tag">培養肉</span>
-                            <span class="tag">永續食物</span>
-                            <span class="tag">韓國延世大學</span>
-                        </div>
-                        <div style="margin-top: 16px;">
-                            <button onclick="showPage('korean-microsushi')" style="background: #0969da; color: white; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer;">閱讀全文</button>
-                        </div>
-                    </div>
-                    
-                    <!-- 範例研究文章 -->
-                    <div class="article-card" data-tags="生物技術,基因學" data-date="2024-03-10">
-                        <h3 class="article-title">範例研究標題</h3>
-                        <div class="article-meta">
-                            <span>2024-03-10</span>
-                            <span>研究發現</span>
-                        </div>
-                        <p class="article-summary">這是一個範例研究摘要，介紹研究的主要發現和意義...</p>
-                        <div class="article-tags">
-                            <span class="tag">生物技術</span>
-                            <span class="tag">基因學</span>
-                        </div>
-                    </div>
+                    <div class="loading">載入中...</div>
                 </div>
             </div>
 
-            <!-- Other pages would follow similar structure -->
+            <!-- Other category pages -->
             <div id="biotech-companies" class="page">
                 <header class="page-header">
                     <h1 class="page-title">生技藥廠公司文</h1>
                     <p class="page-description">重要企業的深度分析與介紹</p>
                 </header>
-                <p>生技藥廠公司文內容即將推出...</p>
+                <div class="article-grid" id="biotech-articles">
+                    <div class="loading">載入中...</div>
+                </div>
             </div>
 
-            <!-- Korean Microsushi Article Page -->
-            <div id="korean-microsushi" class="page article-page">
+            <div id="career" class="page">
                 <header class="page-header">
-                    <h1 class="page-title">未來食物新浪潮：韓國微壽司 — 米粒大小的壽司</h1>
-                    <div class="article-meta">
-                        <span>2025-03-27</span>
-                        <span>研究發現</span>
-                        <span>8 min read</span>
-                    </div>
+                    <h1 class="page-title">職涯相關</h1>
+                    <p class="page-description">職業發展、轉職經驗與職場心得分享</p>
+                </header>
+                <div class="article-grid" id="career-articles">
+                    <div class="loading">載入中...</div>
+                </div>
+            </div>
+
+            <div id="life-chat" class="page">
+                <header class="page-header">
+                    <h1 class="page-title">生活閒聊</h1>
+                    <p class="page-description">工作之餘的生活分享與心得</p>
+                </header>
+                <div class="article-grid" id="life-articles">
+                    <div class="loading">載入中...</div>
+                </div>
+            </div>
+
+            <!-- Dynamic Article Page -->
+            <div id="article-view" class="page article-page">
+                <header class="page-header">
+                    <h1 class="page-title" id="article-title">載入中...</h1>
+                    <div class="article-meta" id="article-meta"></div>
                 </header>
                 
-                <div class="article-content">
+                <div class="article-content" id="article-content">
+                    <div class="loading">載入文章中...</div>
+                </div>
+
+                <div class="article-navigation">
+                    <div class="article-tags-section">
+                        <h4>文章標籤</h4>
+                        <div class="article-tags" id="article-tags-display"></div>
+                    </div>
+                    
+                    <div class="navigation-buttons">
+                        <button onclick="goBackToCategory()" class="nav-button home" id="back-button">回首頁</button>
+                        <button onclick="navigateArticle('prev')" class="nav-button" id="prev-button">上一篇</button>
+                        <button onclick="navigateArticle('next')" class="nav-button" id="next-button">下一篇</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Posts registry - loaded from external JSON file
+        let postsRegistry = {};
+        let currentCategory = 'home';
+        let currentArticle = null;
+        let currentArticleIndex = -1;
+
+        // Load posts from external JSON file
+        async function loadPostsRegistry() {
+            try {
+                const response = await fetch('_data/posts.json');
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                postsRegistry = await response.json();
+                console.log('Posts registry loaded successfully');
+                
+                // If we're already on a category page, refresh it
+                if (currentCategory !== 'home' && currentCategory !== 'article-view') {
+                    loadArticlesForCategory(currentCategory);
+                }
+            } catch (error) {
+                console.error('Error loading posts registry:', error);
+                postsRegistry = {}; // Fallback to empty registry
+                
+                // Show error message in current category if applicable
+                if (currentCategory !== 'home' && currentCategory !== 'article-view') {
+                    const container = document.getElementById(`${currentCategory}-articles`);
+                    if (container) {
+                        container.innerHTML = `
+                            <div class="error">
+                                <h3>載入失敗</h3>
+                                <p>無法載入文章列表。請確保 _data/posts.json 檔案存在且格式正確。</p>
+                                <p>錯誤詳情：${error.message}</p>
+                            </div>
+                        `;
+                    }
+                }
+            }
+        }
+
+        // Page navigation
+        function showPage(pageId) {
+            // Hide all pages
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => page.classList.remove('active'));
+            
+            // Remove active class from all nav links
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => link.classList.remove('active'));
+            
+            // Show selected page
+            document.getElementById(pageId).classList.add('active');
+            
+            // Add active class to appropriate nav link
+            const targetNavLink = document.querySelector(`[onclick="showPage('${pageId}')"]`);
+            if (targetNavLink) {
+                targetNavLink.classList.add('active');
+            }
+            
+            // Load articles for the page
+            currentCategory = pageId;
+            if (pageId !== 'home' && pageId !== 'article-view') {
+                loadArticlesForCategory(pageId);
+            }
+        }
+
+        // Load articles for a specific category
+        function loadArticlesForCategory(category) {
+            const articles = postsRegistry[category] || [];
+            const container = document.getElementById(`${category}-articles`);
+            
+            if (!container) {
+                console.error(`Container not found for category: ${category}`);
+                return;
+            }
+            
+            if (articles.length === 0) {
+                container.innerHTML = '<p style="text-align: center; color: #656d76; padding: 40px;">此分類暫無文章</p>';
+                return;
+            }
+            
+            container.innerHTML = articles.map(article => `
+                <div class="article-card" onclick="loadArticle('${article.id}')" data-tags="${article.tags.join(',')}" data-date="${article.date}">
+                    <h3 class="article-title">${article.title}</h3>
+                    <div class="article-meta">
+                        <span>${article.date}</span>
+                        <span>${getCategoryDisplayName(article.category)}</span>
+                        ${article.readTime ? `<span>${article.readTime}</span>` : ''}
+                    </div>
+                    <p class="article-summary">${article.summary}</p>
+                    <div class="article-tags">
+                        ${article.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Load individual article
+        async function loadArticle(articleId) {
+            // Find the article in the registry
+            let article = null;
+            let categoryArticles = [];
+            
+            for (const [category, articles] of Object.entries(postsRegistry)) {
+                const found = articles.find(a => a.id === articleId);
+                if (found) {
+                    article = found;
+                    categoryArticles = articles;
+                    currentCategory = category;
+                    break;
+                }
+            }
+            
+            if (!article) {
+                console.error('Article not found:', articleId);
+                return;
+            }
+            
+            currentArticle = article;
+            currentArticleIndex = categoryArticles.indexOf(article);
+            
+            // Show article page
+            showPage('article-view');
+            
+            // Update page content
+            document.getElementById('article-title').textContent = article.title;
+            document.getElementById('article-meta').innerHTML = `
+                <span>${article.date}</span>
+                <span>${getCategoryDisplayName(article.category)}</span>
+                ${article.readTime ? `<span>${article.readTime}</span>` : ''}
+            `;
+            document.getElementById('article-tags-display').innerHTML = 
+                article.tags.map(tag => `<span class="tag">${tag}</span>`).join('');
+            
+            // Update navigation buttons
+            const backButton = document.getElementById('back-button');
+            backButton.textContent = `回${getCategoryDisplayName(article.category)}首頁`;
+            
+            const prevButton = document.getElementById('prev-button');
+            const nextButton = document.getElementById('next-button');
+            
+            if (currentArticleIndex > 0) {
+                prevButton.classList.remove('disabled');
+                prevButton.onclick = () => navigateArticle('prev');
+            } else {
+                prevButton.classList.add('disabled');
+                prevButton.onclick = null;
+            }
+            
+            if (currentArticleIndex < categoryArticles.length - 1) {
+                nextButton.classList.remove('disabled');
+                nextButton.onclick = () => navigateArticle('next');
+            } else {
+                nextButton.classList.add('disabled');
+                nextButton.onclick = null;
+            }
+            
+            // Load article content from _posts folder
+            try {
+                const response = await fetch(`_posts/${article.filename}`);
+                if (response.ok) {
+                    const content = await response.text();
+                    document.getElementById('article-content').innerHTML = content;
+                } else {
+                    // Fallback for demo - in real implementation, this would load from _posts
+                    document.getElementById('article-content').innerHTML = getDemoArticleContent(articleId);
+                }
+            } catch (error) {
+                console.error('Error loading article:', error);
+                // Fallback content for demo
+                document.getElementById('article-content').innerHTML = getDemoArticleContent(articleId);
+            }
+        }
+
+        // Get demo article content (replace with actual file loading)
+        function getDemoArticleContent(articleId) {
+            if (articleId === '2025-03-27-korean-microsushi') {
+                return `
                     <h3>▋永續以及未來食物</h3>
                     <p>根據聯合國網站，永續食物(sustainable food system, SFS)分為三個面向：</p>
                     <ul style="margin-left: 20px; margin-bottom: 15px;">
@@ -640,113 +828,129 @@
                     <p><a href="https://www.science.org/content/article/rice-covered-cow-cells-aims-provide-nutritious-sustainable-food" target="_blank">Rice covered in cow cells aims to provide nutritious, sustainable food - Science</a></p>
                     
                     <p><strong>Publication:</strong></p>
-                    <p>S Park, M Lee, S Jung et al. Rice grains integrated with animal cells: A shortcut to a sustainable food system. Matter (2024) <br>
+                    <p>S Park, M Lee, S Jung et al. Rice grains integrated with animal cells: A shortcut to a sustainable food system. Matter (2024)<br>
                     DOI: <a href="https://www.cell.com/matter/abstract/S2590-2385%2824%2900016-X" target="_blank">10.1016/j.matt.2024.01.015</a></p>
-                </div>
-
-                <div class="article-navigation">
-                    <div class="article-tags-section">
-                        <h4>文章標籤</h4>
-                        <div class="article-tags">
-                            <span class="tag">培養肉</span>
-                            <span class="tag">永續食物</span>
-                            <span class="tag">韓國延世大學</span>
-                        </div>
-                    </div>
-                    
-                    <div class="navigation-buttons">
-                        <a href="#" onclick="showPage('research')" class="nav-button home">回研究發現首頁</a>
-                        <a href="#" onclick="navigateArticle('prev')" class="nav-button disabled">上一篇</a>
-                        <a href="#" onclick="navigateArticle('next')" class="nav-button disabled">下一篇</a>
-                    </div>
-                </div>
-            </div>
-
-            <div id="career" class="page">
-                <header class="page-header">
-                    <h1 class="page-title">職涯相關</h1>
-                    <p class="page-description">職業發展、轉職經驗與職場心得分享</p>
-                </header>
-                <p>職涯相關內容即將推出...</p>
-            </div>
-
-            <div id="life-chat" class="page">
-                <header class="page-header">
-                    <h1 class="page-title">生活閒聊</h1>
-                    <p class="page-description">工作之餘的生活分享與心得</p>
-                </header>
-                <p>生活閒聊內容即將推出...</p>
-            </div>
-        </main>
-    </div>
-
-    <!-- Modal for Full Articles -->
-    <div id="articleModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 id="modalTitle" class="modal-title"></h2>
-                <button class="close" onclick="closeModal()">&times;</button>
-            </div>
-            <div id="modalBody" class="modal-body"></div>
-        </div>
-    </div>
-
-    <script>
-        // Research articles order for navigation
-        const researchArticles = [
-            'korean-microsushi'
-            // Add more article IDs here as you create them
-        ];
-
-        // Page navigation
-        function showPage(pageId) {
-            // Hide all pages
-            const pages = document.querySelectorAll('.page');
-            pages.forEach(page => page.classList.remove('active'));
-            
-            // Remove active class from all nav links
-            const navLinks = document.querySelectorAll('.nav-link');
-            navLinks.forEach(link => link.classList.remove('active'));
-            
-            // Show selected page
-            document.getElementById(pageId).classList.add('active');
-            
-            // Add active class to appropriate nav link
-            if (pageId === 'korean-microsushi') {
-                // For article pages, highlight the parent section
-                document.querySelector('[onclick="showPage(\'research\')"]').classList.add('active');
-            } else {
-                // For regular pages, highlight the clicked link
-                document.querySelector(`[onclick="showPage('${pageId}')"]`).classList.add('active');
+                `;
             }
+            
+            // Default fallback for other articles
+            return `
+                <div class="error">
+                    <h3>文章內容暫未提供</h3>
+                    <p>此文章的完整內容尚未建立。請在 _posts/${articleId}.html 中新增內容。</p>
+                </div>
+            `;
         }
 
-        // Article navigation
+        // Navigate between articles
         function navigateArticle(direction) {
-            const currentPage = document.querySelector('.page.active').id;
-            const currentIndex = researchArticles.indexOf(currentPage);
+            if (!currentArticle) return;
             
-            if (direction === 'prev' && currentIndex > 0) {
-                showPage(researchArticles[currentIndex - 1]);
-            } else if (direction === 'next' && currentIndex < researchArticles.length - 1) {
-                showPage(researchArticles[currentIndex + 1]);
+            const categoryArticles = postsRegistry[currentCategory];
+            if (!categoryArticles) return;
+            
+            let newIndex = currentArticleIndex;
+            if (direction === 'prev' && currentArticleIndex > 0) {
+                newIndex = currentArticleIndex - 1;
+            } else if (direction === 'next' && currentArticleIndex < categoryArticles.length - 1) {
+                newIndex = currentArticleIndex + 1;
             }
+            
+            if (newIndex !== currentArticleIndex) {
+                loadArticle(categoryArticles[newIndex].id);
+            }
+        }
+
+        // Go back to category page
+        function goBackToCategory() {
+            if (currentCategory && currentCategory !== 'home') {
+                showPage(currentCategory);
+            } else {
+                showPage('home');
+            }
+        }
+
+        // Get display name for category
+        function getCategoryDisplayName(category) {
+            const names = {
+                'research': '研究發現',
+                'industry-news': '業界新聞',
+                'biotech-companies': '生技藥廠公司文',
+                'career': '職涯相關',
+                'life-chat': '生活閒聊'
+            };
+            return names[category] || category;
         }
 
         // Filter functionality
         function filterByTag(type, value) {
             console.log(`Filtering by ${type}: ${value}`);
-            // Add your filtering logic here
             
-            // Toggle active state on tags
+            const categoryArticles = postsRegistry[currentCategory] || [];
+            const container = document.getElementById(`${currentCategory}-articles`);
+            
+            if (!container) return;
+            
+            // Toggle active state on clicked tag
             const clickedTag = event.target;
-            clickedTag.classList.toggle('active');
+            const isActive = clickedTag.classList.contains('active');
+            
+            // Remove active from all tags in the same group
+            const parentGroup = clickedTag.closest('.filter-group');
+            const tags = parentGroup.querySelectorAll('.tag');
+            tags.forEach(tag => tag.classList.remove('active'));
+            
+            if (!isActive) {
+                clickedTag.classList.add('active');
+                
+                // Filter articles by tag
+                const filteredArticles = categoryArticles.filter(article => {
+                    if (type === 'company') {
+                        return article.tags.some(tag => tag.toLowerCase().includes(value.replace('-', ' ')));
+                    } else if (type === 'drug' || type === 'disease' || type === 'area') {
+                        return article.tags.some(tag => tag.toLowerCase().includes(value.replace('-', ' ')));
+                    }
+                    return true;
+                });
+                
+                displayFilteredArticles(filteredArticles, container);
+            } else {
+                // Show all articles if tag is deactivated
+                displayFilteredArticles(categoryArticles, container);
+            }
+        }
+
+        // Display filtered articles
+        function displayFilteredArticles(articles, container) {
+            if (articles.length === 0) {
+                container.innerHTML = '<p style="text-align: center; color: #656d76; padding: 40px;">沒有符合條件的文章</p>';
+                return;
+            }
+            
+            container.innerHTML = articles.map(article => `
+                <div class="article-card" onclick="loadArticle('${article.id}')" data-tags="${article.tags.join(',')}" data-date="${article.date}">
+                    <h3 class="article-title">${article.title}</h3>
+                    <div class="article-meta">
+                        <span>${article.date}</span>
+                        <span>${getCategoryDisplayName(article.category)}</span>
+                        ${article.readTime ? `<span>${article.readTime}</span>` : ''}
+                    </div>
+                    <p class="article-summary">${article.summary}</p>
+                    <div class="article-tags">
+                        ${article.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+                    </div>
+                </div>
+            `).join('');
         }
 
         // Sort functionality
         function sortByDate(order) {
             console.log(`Sorting by date: ${order}`);
-            // Add your sorting logic here
+            
+            const categoryArticles = postsRegistry[currentCategory] || [];
+            const container = document.getElementById(`${currentCategory}-articles`);
+            
+            if (!container) return;
             
             // Toggle active state on tags
             const clickedTag = event.target;
@@ -754,94 +958,30 @@
             const tags = parentGroup.querySelectorAll('.tag');
             tags.forEach(tag => tag.classList.remove('active'));
             clickedTag.classList.add('active');
-        }
-    </script><li>細胞在有魚膠包覆的米粒上分化的比較好：米在潮濕的環境或是放久了，會因為米本身的酵素導致結構崩壞，變得粉粉或爛爛的，但是魚膠包裹後形成的連結(bonding)會增加結構穩定性。</li>
-                        <li>myoblast 在有魚膠包覆的米粒上繁殖的比較好，細胞的密度比較高，adMSC 則沒太大差別。</li>
-                        <li>肌肉細胞裡 actin 和 mysoin 加熱後會因為 denature 的關係，口感會比較硬和脆，因為澱粉鍊較短，所以也比較不黏。</li>
-                        <li>微壽司所含的碳水化合物、蛋白質和脂肪都比純米要高，碳水化合物多了 0.16 g，蛋白質多了 310 mg，脂肪則多了 10 mg。</li>
-                    </ul>
-                    
-                    <p>價格上的話，他們估計這種微壽司米每公斤的批發價只會比普通米貴 $0.03 美元。</p>
-                    
-                    <p><strong>大家會想直接吃肉配飯，還是會想吃這種微壽司呢？</strong></p>
-                    
-                    <hr style="margin: 20px 0; border: none; border-top: 1px solid #d0d7de;">
-                    
-                    <h3>📚 參考資料</h3>
-                    <p><strong>Articles:</strong></p>
-                    <p><a href="https://openknowledge.fao.org/server/api/core/bitstreams/b620989c-407b-4caf-a152-f790f55fec71/content" target="_blank">Sustainable food systems - FAO</a></p>
-                    <p><a href="https://www.nature.com/articles/d41586-024-00398-w" target="_blank">Introducing meat–rice: grain with added muscles beefs up protein - Nature</a></p>
-                    <p><a href="https://www.science.org/content/article/rice-covered-cow-cells-aims-provide-nutritious-sustainable-food" target="_blank">Rice covered in cow cells aims to provide nutritious, sustainable food - Science</a></p>
-                    
-                    <p><strong>Publication:</strong></p>
-                    <p>S Park, M Lee, S Jung et al. Rice grains integrated with animal cells: A shortcut to a sustainable food system. Matter (2024) <br>
-                    DOI: <a href="https://www.cell.com/matter/abstract/S2590-2385%2824%2900016-X" target="_blank">10.1016/j.matt.2024.01.015</a></p>
-                `
-            }
-        };
-
-        // Page navigation
-        function showPage(pageId) {
-            // Hide all pages
-            const pages = document.querySelectorAll('.page');
-            pages.forEach(page => page.classList.remove('active'));
             
-            // Remove active class from all nav links
-            const navLinks = document.querySelectorAll('.nav-link');
-            navLinks.forEach(link => link.classList.remove('active'));
+            // Sort articles
+            const sortedArticles = [...categoryArticles].sort((a, b) => {
+                const dateA = new Date(a.date);
+                const dateB = new Date(b.date);
+                
+                if (order === 'newest') {
+                    return dateB - dateA; // Newest first
+                } else {
+                    return dateA - dateB; // Oldest first
+                }
+            });
             
-            // Show selected page
-            document.getElementById(pageId).classList.add('active');
+            displayFilteredArticles(sortedArticles, container);
+        }
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', async function() {
+            // Load posts registry first
+            await loadPostsRegistry();
             
-            // Add active class to clicked nav link
-            event.target.classList.add('active');
-        }
-
-        // Show full article content
-        function showArticleContent(articleId) {
-            const article = articleDatabase[articleId];
-            if (article) {
-                document.getElementById('modalTitle').textContent = article.title;
-                document.getElementById('modalBody').innerHTML = article.content;
-                document.getElementById('articleModal').style.display = 'flex';
-            }
-        }
-
-        // Close modal
-        function closeModal() {
-            document.getElementById('articleModal').style.display = 'none';
-        }
-
-        // Close modal when clicking outside
-        window.onclick = function(event) {
-            const modal = document.getElementById('articleModal');
-            if (event.target === modal) {
-                modal.style.display = 'none';
-            }
-        }
-
-        // Filter functionality
-        function filterByTag(type, value) {
-            console.log(`Filtering by ${type}: ${value}`);
-            // Add your filtering logic here
-            
-            // Toggle active state on tags
-            const clickedTag = event.target;
-            clickedTag.classList.toggle('active');
-        }
-
-        // Sort functionality
-        function sortByDate(order) {
-            console.log(`Sorting by date: ${order}`);
-            // Add your sorting logic here
-            
-            // Toggle active state on tags
-            const clickedTag = event.target;
-            const parentGroup = clickedTag.closest('.filter-group');
-            const tags = parentGroup.querySelectorAll('.tag');
-            tags.forEach(tag => tag.classList.remove('active'));
-            clickedTag.classList.add('active');
-        }
+            // Then show the home page
+            showPage('home');
+        });
     </script>
 </body>
 </html>
