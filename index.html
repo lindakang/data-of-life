@@ -589,42 +589,166 @@
     </div>
 
     <script>
-        // Posts registry - loaded from external JSON file
+        // Posts registry - try to load from external file, fallback to embedded data
         let postsRegistry = {};
         let currentCategory = 'home';
         let currentArticle = null;
         let currentArticleIndex = -1;
 
-        // Load posts from external JSON file
+        // Load posts from external JSON file with fallback
         async function loadPostsRegistry() {
             try {
-                const response = await fetch('_data/posts.json');
+                const response = await fetch('posts.json');
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
                 postsRegistry = await response.json();
-                console.log('Posts registry loaded successfully');
+                console.log('Posts registry loaded from external file successfully');
                 
                 // If we're already on a category page, refresh it
                 if (currentCategory !== 'home' && currentCategory !== 'article-view') {
                     loadArticlesForCategory(currentCategory);
                 }
             } catch (error) {
-                console.error('Error loading posts registry:', error);
-                postsRegistry = {}; // Fallback to empty registry
+                console.warn('Could not load external posts.json, using fallback data:', error);
                 
-                // Show error message in current category if applicable
+                // Fallback to embedded data
+                postsRegistry = {
+                    "research": [
+                        {
+                            "id": "2025-03-27-korean-microsushi",
+                            "title": "未來食物新浪潮：韓國微壽司 — 米粒大小的壽司",
+                            "date": "2025-03-27",
+                            "category": "research",
+                            "tags": ["培養肉", "永續食物", "韓國延世大學"],
+                            "summary": "韓國延世大學研究團隊開發了富含蛋白質的「微牛肉壽司」，直接用牛肉細胞包裹米粒，為培養肉技術提供了創新應用。",
+                            "readTime": "8 min read",
+                            "filename": "2025-03-27-korean-microsushi.html"
+                        },
+                        {
+                            "id": "2025-03-20-crispr-advances",
+                            "title": "CRISPR基因編輯技術的最新突破",
+                            "date": "2025-03-20",
+                            "category": "research",
+                            "tags": ["CRISPR", "基因編輯", "遺傳疾病", "生物技術"],
+                            "summary": "科學家們在CRISPR技術上取得重大進展，成功開發出更精確的基因編輯方法，為治療遺傳性疾病帶來新希望。",
+                            "readTime": "7分鐘閱讀",
+                            "filename": "2025-03-20-crispr-advances.html"
+                        },
+                        {
+                            "id": "2025-03-15-neuroscience-breakthrough",
+                            "title": "腦神經科學的重大發現",
+                            "date": "2025-03-15",
+                            "category": "research",
+                            "tags": ["神經科學", "腦科學", "記憶", "阿茲海默"],
+                            "summary": "最新研究揭示了大腦記憶形成的新機制，可能為阿茲海默症等神經退化性疾病的治療開闢新途徑。",
+                            "readTime": "6分鐘閱讀",
+                            "filename": "2025-03-15-neuroscience-breakthrough.html"
+                        }
+                    ],
+                    "industry-news": [
+                        {
+                            "id": "2025-03-25-pfizer-merger",
+                            "title": "Pfizer宣布重大併購案",
+                            "date": "2025-03-25",
+                            "category": "industry-news",
+                            "tags": ["Pfizer", "併購", "生技產業", "藥物開發"],
+                            "summary": "輝瑞製藥公司宣布以150億美元併購一家專注於癌症治療的生技公司，預計將大幅擴展其腫瘤學產品組合。",
+                            "readTime": "4分鐘閱讀",
+                            "filename": "2025-03-25-pfizer-merger.html"
+                        },
+                        {
+                            "id": "2025-03-22-covid-vaccine-update",
+                            "title": "新冠疫苗技術的最新發展",
+                            "date": "2025-03-22",
+                            "category": "industry-news",
+                            "tags": ["COVID疫苗", "Moderna", "疫苗技術", "新冠病毒"],
+                            "summary": "Moderna公司發布了針對新變種病毒的改良疫苗數據，顯示出更好的保護效果和更長的持續時間。",
+                            "readTime": "5分鐘閱讀",
+                            "filename": "2025-03-22-covid-vaccine-update.html"
+                        },
+                        {
+                            "id": "2025-03-18-biotech-funding",
+                            "title": "生技產業投資趨勢分析",
+                            "date": "2025-03-18",
+                            "category": "industry-news",
+                            "tags": ["投資", "生技產業", "資金", "新創公司"],
+                            "summary": "2025年第一季生技產業投資達到新高，細胞治療和基因治療領域受到投資者特別關注。",
+                            "readTime": "6分鐘閱讀",
+                            "filename": "2025-03-18-biotech-funding.html"
+                        }
+                    ],
+                    "biotech-companies": [
+                        {
+                            "id": "2025-03-24-roche-analysis",
+                            "title": "羅氏製藥：個人化醫療的領導者",
+                            "date": "2025-03-24",
+                            "category": "biotech-companies",
+                            "tags": ["Roche", "羅氏", "個人化醫療", "診斷", "腫瘤學"],
+                            "summary": "深度分析羅氏製藥在個人化醫療領域的策略布局，以及其診斷和治療一體化的商業模式。",
+                            "readTime": "8分鐘閱讀",
+                            "filename": "2025-03-24-roche-analysis.html"
+                        },
+                        {
+                            "id": "2025-03-19-novartis-strategy",
+                            "title": "諾華的數位轉型之路",
+                            "date": "2025-03-19",
+                            "category": "biotech-companies",
+                            "tags": ["Novartis", "諾華", "數位轉型", "AI", "藥物開發"],
+                            "summary": "探討諾華如何運用人工智慧和數位技術來加速藥物開發流程，並提升患者照護品質。",
+                            "readTime": "7分鐘閱讀",
+                            "filename": "2025-03-19-novartis-strategy.html"
+                        }
+                    ],
+                    "career": [
+                        {
+                            "id": "2025-03-26-biotech-career-guide",
+                            "title": "生技產業職涯規劃指南",
+                            "date": "2025-03-26",
+                            "category": "career",
+                            "tags": ["職涯規劃", "生技產業", "轉職", "技能發展"],
+                            "summary": "分享在生技產業中不同職業路徑的發展機會，以及如何準備轉職到生技領域的實用建議。",
+                            "readTime": "10分鐘閱讀",
+                            "filename": "2025-03-26-biotech-career-guide.html"
+                        },
+                        {
+                            "id": "2025-03-21-phd-to-industry",
+                            "title": "從學術界到工業界的轉換",
+                            "date": "2025-03-21",
+                            "category": "career",
+                            "tags": ["博士", "學術轉工業", "職涯轉換", "生科背景"],
+                            "summary": "博士畢業生如何成功從學術研究轉向產業界，包括心態調整、技能培養和求職策略。",
+                            "readTime": "8分鐘閱讀",
+                            "filename": "2025-03-21-phd-to-industry.html"
+                        }
+                    ],
+                    "life-chat": [
+                        {
+                            "id": "2025-03-23-work-life-balance",
+                            "title": "生科社畜的工作生活平衡",
+                            "date": "2025-03-23",
+                            "category": "life-chat",
+                            "tags": ["工作生活平衡", "社畜生活", "壓力管理", "生活分享"],
+                            "summary": "在高壓的生科產業中，如何維持工作與生活的平衡，以及一些實用的壓力管理技巧分享。",
+                            "readTime": "5分鐘閱讀",
+                            "filename": "2025-03-23-work-life-balance.html"
+                        },
+                        {
+                            "id": "2025-03-17-conference-experience",
+                            "title": "參加國際會議的心得感想",
+                            "date": "2025-03-17",
+                            "category": "life-chat",
+                            "tags": ["會議", "學術交流", "國際會議", "心得分享"],
+                            "summary": "分享最近參加國際生技會議的經驗，包括有趣的研究發現、networking心得，以及一些會議小插曲。",
+                            "readTime": "6分鐘閱讀",
+                            "filename": "2025-03-17-conference-experience.html"
+                        }
+                    ]
+                };
+                
+                // If we're already on a category page, refresh it
                 if (currentCategory !== 'home' && currentCategory !== 'article-view') {
-                    const container = document.getElementById(`${currentCategory}-articles`);
-                    if (container) {
-                        container.innerHTML = `
-                            <div class="error">
-                                <h3>載入失敗</h3>
-                                <p>無法載入文章列表。請確保 _data/posts.json 檔案存在且格式正確。</p>
-                                <p>錯誤詳情：${error.message}</p>
-                            </div>
-                        `;
-                    }
+                    loadArticlesForCategory(currentCategory);
                 }
             }
         }
@@ -1006,9 +1130,9 @@
         }
 
         // Initialize the page
-        document.addEventListener('DOMContentLoaded', async function() {
-            // Load posts registry first
-            await loadPostsRegistry();
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load posts registry (now synchronous)
+            loadPostsRegistry();
             
             // Then show the home page
             showPage('home');
