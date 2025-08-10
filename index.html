@@ -482,39 +482,39 @@
                     <div class="filter-group">
                         <h4>依公司分類</h4>
                         <div class="tag-list">
-                            <span class="tag" onclick="filterByTag('company', 'pfizer')">Pfizer</span>
-                            <span class="tag" onclick="filterByTag('company', 'moderna')">Moderna</span>
-                            <span class="tag" onclick="filterByTag('company', 'roche')">Roche</span>
-                            <span class="tag" onclick="filterByTag('company', 'novartis')">Novartis</span>
-                            <span class="tag" onclick="filterByTag('company', 'johnson-johnson')">Johnson & Johnson</span>
+                            <span class="tag" onclick="filterByTag('company', 'pfizer', this)">Pfizer</span>
+                            <span class="tag" onclick="filterByTag('company', 'moderna', this)">Moderna</span>
+                            <span class="tag" onclick="filterByTag('company', 'roche', this)">Roche</span>
+                            <span class="tag" onclick="filterByTag('company', 'novartis', this)">Novartis</span>
+                            <span class="tag" onclick="filterByTag('company', 'johnson-johnson', this)">Johnson & Johnson</span>
                         </div>
                     </div>
 
                     <div class="filter-group">
                         <h4>依藥物分類</h4>
                         <div class="tag-list">
-                            <span class="tag" onclick="filterByTag('drug', 'covid-vaccine')">COVID疫苗</span>
-                            <span class="tag" onclick="filterByTag('drug', 'cancer-drug')">癌症藥物</span>
-                            <span class="tag" onclick="filterByTag('drug', 'diabetes-drug')">糖尿病藥物</span>
-                            <span class="tag" onclick="filterByTag('drug', 'alzheimer-drug')">阿茲海默症藥物</span>
+                            <span class="tag" onclick="filterByTag('drug', 'covid-vaccine', this)">COVID疫苗</span>
+                            <span class="tag" onclick="filterByTag('drug', 'cancer-drug', this)">癌症藥物</span>
+                            <span class="tag" onclick="filterByTag('drug', 'diabetes-drug', this)">糖尿病藥物</span>
+                            <span class="tag" onclick="filterByTag('drug', 'alzheimer-drug', this)">阿茲海默症藥物</span>
                         </div>
                     </div>
 
                     <div class="filter-group">
                         <h4>依疾病分類</h4>
                         <div class="tag-list">
-                            <span class="tag" onclick="filterByTag('disease', 'cancer')">癌症</span>
-                            <span class="tag" onclick="filterByTag('disease', 'diabetes')">糖尿病</span>
-                            <span class="tag" onclick="filterByTag('disease', 'alzheimer')">阿茲海默症</span>
-                            <span class="tag" onclick="filterByTag('disease', 'covid')">COVID-19</span>
+                            <span class="tag" onclick="filterByTag('disease', 'cancer', this)">癌症</span>
+                            <span class="tag" onclick="filterByTag('disease', 'diabetes', this)">糖尿病</span>
+                            <span class="tag" onclick="filterByTag('disease', 'alzheimer', this)">阿茲海默症</span>
+                            <span class="tag" onclick="filterByTag('disease', 'covid', this)">COVID-19</span>
                         </div>
                     </div>
 
                     <div class="filter-group">
                         <h4>依日期排序</h4>
                         <div class="tag-list">
-                            <span class="tag" onclick="sortByDate('newest')">最新消息</span>
-                            <span class="tag" onclick="sortByDate('oldest')">較舊消息</span>
+                            <span class="tag" onclick="sortByDate('newest', this)">最新消息</span>
+                            <span class="tag" onclick="sortByDate('oldest', this)">較舊消息</span>
                         </div>
                     </div>
                 </div>
@@ -537,20 +537,20 @@
                     <div class="filter-group">
                         <h4>依研究領域分類</h4>
                         <div class="tag-list">
-                            <span class="tag" onclick="filterByTag('area', 'cultured-meat')">培養肉</span>
-                            <span class="tag" onclick="filterByTag('area', 'biotechnology')">生物技術</span>
-                            <span class="tag" onclick="filterByTag('area', 'genetics')">基因學</span>
-                            <span class="tag" onclick="filterByTag('area', 'immunology')">免疫學</span>
-                            <span class="tag" onclick="filterByTag('area', 'neuroscience')">神經科學</span>
-                            <span class="tag" onclick="filterByTag('area', 'oncology')">腫瘤學</span>
+                            <span class="tag" onclick="filterByTag('area', 'cultured-meat', this)">培養肉</span>
+                            <span class="tag" onclick="filterByTag('area', 'biotechnology', this)">生物技術</span>
+                            <span class="tag" onclick="filterByTag('area', 'genetics', this)">基因學</span>
+                            <span class="tag" onclick="filterByTag('area', 'immunology', this)">免疫學</span>
+                            <span class="tag" onclick="filterByTag('area', 'neuroscience', this)">神經科學</span>
+                            <span class="tag" onclick="filterByTag('area', 'oncology', this)">腫瘤學</span>
                         </div>
                     </div>
 
                     <div class="filter-group">
                         <h4>依日期排序</h4>
                         <div class="tag-list">
-                            <span class="tag" onclick="sortByDate('newest')">最新研究</span>
-                            <span class="tag" onclick="sortByDate('oldest')">較舊研究</span>
+                            <span class="tag" onclick="sortByDate('newest', this)">最新研究</span>
+                            <span class="tag" onclick="sortByDate('oldest', this)">較舊研究</span>
                         </div>
                     </div>
                 </div>
@@ -703,7 +703,7 @@
         }
 
         // Load individual article
-        async function loadArticle(articleId) {
+        function loadArticle(articleId) {
             // Find the article in the registry
             let article = null;
             let categoryArticles = [];
@@ -762,21 +762,8 @@
                 nextButton.onclick = null;
             }
             
-            // Load article content from _posts folder
-            try {
-                const response = await fetch(`_posts/${article.filename}`);
-                if (response.ok) {
-                    const content = await response.text();
-                    document.getElementById('article-content').innerHTML = content;
-                } else {
-                    // Fallback for demo - in real implementation, this would load from _posts
-                    document.getElementById('article-content').innerHTML = getDemoArticleContent(articleId);
-                }
-            } catch (error) {
-                console.error('Error loading article:', error);
-                // Fallback content for demo
-                document.getElementById('article-content').innerHTML = getDemoArticleContent(articleId);
-            }
+            // Load demo article content immediately (no async needed for demo)
+            document.getElementById('article-content').innerHTML = getDemoArticleContent(articleId);
         }
 
         // Get demo article content (replace with actual file loading)
@@ -793,8 +780,8 @@
                     <p>由於永續議題興起，有些食材和食物開始流行了起來，包括植物肉、培養肉之類的替代性蛋白質等等。</p>
 
                     <div class="image-container">
-                        <img src="/nonproscience/assets/images/未來食物.png" alt="未來食物">
-                        <p class="image-caption">未來食物</p>
+                        <img src="https://via.placeholder.com/600x400/f0f8ff/4169e1?text=未來食物" alt="未來食物">
+                        <p class="image-caption">未來食物示意圖</p>
                     </div>
                     
                     <p>替代性蛋白質中，較有名的大概是 Beyond Meat，可能有人以為這是培養肉(cultured meat)，但其實它是植物性肉類(plant-based meat)。目前上市的培養肉公司有 UPSIDE Food 和 GOOD Meat，培養肉市場預估在 2034 年的時候可達到 $1.1B 美元。</p>
@@ -811,7 +798,7 @@
                     <p>他們首先用魚的膠質裹住米粒，然後鋪在培養皿中，再把牛的肌肉細胞和脂肪細胞丟進去，讓它們附著在米粒表面生長，也試了不同種類的細胞。之後，測量了這種微壽司的營養成分，結果是每吃 100 公克的微壽司相當於吃進 100 克的米和 1 克的牛肉。</p>
 
                     <div class="image-container">
-                        <img src="/nonproscience/assets/images/微壽司.png" alt="微壽司">
+                        <img src="https://via.placeholder.com/600x400/fff0f5/dc143c?text=微壽司" alt="微壽司">
                         <p class="image-caption">微壽司 - 用牛肉細胞包覆的米粒</p>
                     </div>
 
@@ -902,26 +889,28 @@
         }
 
         // Filter functionality
-        function filterByTag(type, value) {
+        function filterByTag(type, value, element) {
             console.log(`Filtering by ${type}: ${value}`);
             // Add your filtering logic here
             
             // Toggle active state on tags
-            const clickedTag = event.target;
-            clickedTag.classList.toggle('active');
+            if (element) {
+                element.classList.toggle('active');
+            }
         }
 
         // Sort functionality
-        function sortByDate(order) {
+        function sortByDate(order, element) {
             console.log(`Sorting by date: ${order}`);
             // Add your sorting logic here
             
             // Toggle active state on tags
-            const clickedTag = event.target;
-            const parentGroup = clickedTag.closest('.filter-group');
-            const tags = parentGroup.querySelectorAll('.tag');
-            tags.forEach(tag => tag.classList.remove('active'));
-            clickedTag.classList.add('active');
+            if (element) {
+                const parentGroup = element.closest('.filter-group');
+                const tags = parentGroup.querySelectorAll('.tag');
+                tags.forEach(tag => tag.classList.remove('active'));
+                element.classList.add('active');
+            }
         }
 
         // Initialize the page
