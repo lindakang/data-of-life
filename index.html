@@ -42,6 +42,26 @@
             text-align: center;
         }
 
+        .logo-image {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 16px auto;
+            border-radius: 50%;
+            border: 3px solid #0969da;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: white;
+        }
+
+        .logo-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+
         .logo h1 {
             font-size: 24px;
             color: #0969da;
@@ -377,6 +397,11 @@
                 margin-left: 0;
                 padding: 20px;
             }
+            
+            .logo-image {
+                width: 60px;
+                height: 60px;
+            }
         }
     </style>
 </head>
@@ -385,7 +410,9 @@
         <!-- Left Sidebar -->
         <aside class="sidebar">
             <div class="logo">
-        
+                <div class="logo-image">
+                    <img src="assets/images/cell-logo.png" alt="科學細胞圖標">
+                </div>
                 <h1>不專業學術閒聊</h1>
                 <p>生科社畜的科學閒聊</p>
             </div>
