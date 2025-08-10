@@ -42,6 +42,26 @@
             text-align: center;
         }
 
+        .logo-image {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 16px auto;
+            border-radius: 50%;
+            border: 3px solid #0969da;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: white;
+        }
+
+        .logo-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+
         .logo h1 {
             font-size: 24px;
             color: #0969da;
@@ -377,7 +397,155 @@
                 margin-left: 0;
                 padding: 20px;
             }
+            
+            .logo-image {
+                width: 60px;
+                height: 60px;
+            }
         }
+
+        // Load articles for a specific category
+        function loadArticlesForCategory(category) {
+            const articleContainer = document.getElementById(`${category}-articles`);
+            if (!articleContainer) return;
+
+            const posts = postsRegistry[category] || [];
+            
+            if (posts.length === 0) {
+                articleContainer.innerHTML = '<div class="error">目前還沒有這個分類的文章</div>';
+                return;
+            }
+
+            articleContainer.innerHTML = posts.map(post => `
+                <article class="article-card" onclick="showArticle('${post.id}', '${category}')">
+                    <h2 class="article-title">${post.title}</h2>
+                    <div class="article-meta">
+                        <span>📅 ${post.date}</span>
+                        <span>⏱ ${post.readTime}</span>
+                    </div>
+                    <p class="article-summary">${post.summary}</p>
+                    <div class="article-tags">
+                        ${post.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+                    </div>
+                </article>
+            `).join('');
+        }
+
+        // Show individual article
+        function showArticle(articleId, category) {
+            const posts = postsRegistry[category] || [];
+            const article = posts.find(post => post.id === articleId);
+            
+            if (!article) {
+                console.error('Article not found:', articleId);
+                return;
+            }
+
+            currentArticle = article;
+            currentArticleIndex = posts.findIndex(post => post.id === articleId);
+            
+            // Update article page content
+            document.getElementById('article-title').textContent = article.title;
+            document.getElementById('article-meta').innerHTML = `
+                <span>📅 ${article.date}</span>
+                <span>⏱ ${article.readTime}</span>
+                <span>📂 ${getCategoryDisplayName(category)}</span>
+            `;
+            
+            // Show tags
+            document.getElementById('article-tags-display').innerHTML = 
+                article.tags.map(tag => `<span class="tag">${tag}</span>`).join('');
+
+            // Load article content (placeholder for now)
+            document.getElementById('article-content').innerHTML = `
+                <p>這是 "${article.title}" 的文章內容。</p>
+                <p>${article.summary}</p>
+                <hr>
+                <p><em>完整文章內容將從 ${article.filename} 文件載入...</em></p>
+            `;
+
+            // Update navigation buttons
+            updateArticleNavigation(category, posts);
+            
+            // Show article page
+            showPage('article-view');
+        }
+
+        // Update article navigation buttons
+        function updateArticleNavigation(category, posts) {
+            const prevButton = document.getElementById('prev-button');
+            const nextButton = document.getElementById('next-button');
+            const backButton = document.getElementById('back-button');
+
+            // Update back button text
+            backButton.textContent = `回到${getCategoryDisplayName(category)}`;
+            backButton.onclick = () => showPage(category);
+
+            // Update prev/next buttons
+            if (currentArticleIndex > 0) {
+                prevButton.classList.remove('disabled');
+                prevButton.onclick = () => navigateArticle('prev', category, posts);
+            } else {
+                prevButton.classList.add('disabled');
+                prevButton.onclick = null;
+            }
+
+            if (currentArticleIndex < posts.length - 1) {
+                nextButton.classList.remove('disabled');
+                nextButton.onclick = () => navigateArticle('next', category, posts);
+            } else {
+                nextButton.classList.add('disabled');
+                nextButton.onclick = null;
+            }
+        }
+
+        // Navigate between articles
+        function navigateArticle(direction, category, posts) {
+            if (!posts) {
+                posts = postsRegistry[currentCategory] || [];
+            }
+
+            let newIndex;
+            if (direction === 'prev') {
+                newIndex = Math.max(0, currentArticleIndex - 1);
+            } else {
+                newIndex = Math.min(posts.length - 1, currentArticleIndex + 1);
+            }
+
+            if (newIndex !== currentArticleIndex && posts[newIndex]) {
+                showArticle(posts[newIndex].id, category || currentCategory);
+            }
+        }
+
+        // Go back to category page
+        function goBackToCategory() {
+            if (currentCategory && currentCategory !== 'home') {
+                showPage(currentCategory);
+            } else {
+                showPage('home');
+            }
+        }
+
+        // Get display name for category
+        function getCategoryDisplayName(category) {
+            const categoryNames = {
+                'research': '研究發現',
+                'industry-news': '業界新聞',
+                'biotech-companies': '生技藥廠公司文',
+                'career': '職涯相關',
+                'life-chat': '生活閒聊'
+            };
+            return categoryNames[category] || category;
+        }
+
+        // Initialize the page
+        async function init() {
+            await loadPostsRegistry();
+            console.log('Blog initialized successfully');
+        }
+
+        // Run initialization when page loads
+        document.addEventListener('DOMContentLoaded', init);
     </style>
 </head>
 <body>
@@ -385,7 +553,7 @@
         <!-- Left Sidebar -->
         <aside class="sidebar">
             <div class="logo">
-            <div class="logo-image">
+                <div class="logo-image">
                     <img src="assets/images/cell-logo.png" alt="科學細胞圖標">
                 </div>
                 <h1>不專業學術閒聊</h1>
@@ -598,6 +766,51 @@
         let currentArticle = null;
         let currentArticleIndex = -1;
 
+        // Navigation functions
+        function showPage(pageId) {
+            // Hide all pages
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => page.classList.remove('active'));
+            
+            // Show selected page
+            const targetPage = document.getElementById(pageId);
+            if (targetPage) {
+                targetPage.classList.add('active');
+            }
+            
+            // Update nav links
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => link.classList.remove('active'));
+            
+            // Find and activate the corresponding nav link
+            const activeLink = document.querySelector(`[onclick="showPage('${pageId}')"]`);
+            if (activeLink) {
+                activeLink.classList.add('active');
+            }
+            
+            // Update current category
+            currentCategory = pageId;
+            
+            // Load articles for category pages
+            if (pageId !== 'home' && pageId !== 'article-view') {
+                loadArticlesForCategory(pageId);
+            }
+        }
+
+        function filterByTag(type, value) {
+            // Toggle active state on clicked tag
+            event.target.classList.toggle('active');
+            // Implement filtering logic here
+            console.log(`Filtering by ${type}: ${value}`);
+        }
+
+        function sortByDate(order) {
+            // Toggle active state on clicked tag
+            event.target.classList.toggle('active');
+            // Implement sorting logic here
+            console.log(`Sorting by date: ${order}`);
+        }
+
         // Load posts from external JSON file with fallback
         async function loadPostsRegistry() {
             try {
@@ -719,427 +932,4 @@
                             "title": "從學術界到工業界的轉換",
                             "date": "2025-03-21",
                             "category": "career",
-                            "tags": ["博士", "學術轉工業", "職涯轉換", "生科背景"],
-                            "summary": "博士畢業生如何成功從學術研究轉向產業界，包括心態調整、技能培養和求職策略。",
-                            "readTime": "8分鐘閱讀",
-                            "filename": "2025-03-21-phd-to-industry.html"
-                        }
-                    ],
-                    "life-chat": [
-                        {
-                            "id": "2025-03-23-work-life-balance",
-                            "title": "生科社畜的工作生活平衡",
-                            "date": "2025-03-23",
-                            "category": "life-chat",
-                            "tags": ["工作生活平衡", "社畜生活", "壓力管理", "生活分享"],
-                            "summary": "在高壓的生科產業中，如何維持工作與生活的平衡，以及一些實用的壓力管理技巧分享。",
-                            "readTime": "5分鐘閱讀",
-                            "filename": "2025-03-23-work-life-balance.html"
-                        },
-                        {
-                            "id": "2025-03-17-conference-experience",
-                            "title": "參加國際會議的心得感想",
-                            "date": "2025-03-17",
-                            "category": "life-chat",
-                            "tags": ["會議", "學術交流", "國際會議", "心得分享"],
-                            "summary": "分享最近參加國際生技會議的經驗，包括有趣的研究發現、networking心得，以及一些會議小插曲。",
-                            "readTime": "6分鐘閱讀",
-                            "filename": "2025-03-17-conference-experience.html"
-                        }
-                    ]
-                };
-                
-                // If we're already on a category page, refresh it
-                if (currentCategory !== 'home' && currentCategory !== 'article-view') {
-                    loadArticlesForCategory(currentCategory);
-                }
-            }
-        }
-
-        // Page navigation
-        function showPage(pageId) {
-            // Hide all pages
-            const pages = document.querySelectorAll('.page');
-            pages.forEach(page => page.classList.remove('active'));
-            
-            // Remove active class from all nav links
-            const navLinks = document.querySelectorAll('.nav-link');
-            navLinks.forEach(link => link.classList.remove('active'));
-            
-            // Show selected page
-            document.getElementById(pageId).classList.add('active');
-            
-            // Add active class to appropriate nav link
-            const targetNavLink = document.querySelector(`[onclick="showPage('${pageId}')"]`);
-            if (targetNavLink) {
-                targetNavLink.classList.add('active');
-            }
-            
-            // Load articles for the page
-            currentCategory = pageId;
-            if (pageId !== 'home' && pageId !== 'article-view') {
-                loadArticlesForCategory(pageId);
-            }
-        }
-
-        // Load articles for a specific category
-        function loadArticlesForCategory(category) {
-            const articles = postsRegistry[category] || [];
-            const container = document.getElementById(`${category}-articles`);
-            
-            if (!container) {
-                console.error(`Container not found for category: ${category}`);
-                return;
-            }
-            
-            if (articles.length === 0) {
-                container.innerHTML = '<p style="text-align: center; color: #656d76; padding: 40px;">此分類暫無文章</p>';
-                return;
-            }
-            
-            container.innerHTML = articles.map(article => `
-                <div class="article-card" onclick="loadArticle('${article.id}')" data-tags="${article.tags.join(',')}" data-date="${article.date}">
-                    <h3 class="article-title">${article.title}</h3>
-                    <div class="article-meta">
-                        <span>${article.date}</span>
-                        <span>${getCategoryDisplayName(article.category)}</span>
-                        ${article.readTime ? `<span>${article.readTime}</span>` : ''}
-                    </div>
-                    <p class="article-summary">${article.summary}</p>
-                    <div class="article-tags">
-                        ${article.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        // Load individual article
-        async function loadArticle(articleId) {
-            // Find the article in the registry
-            let article = null;
-            let categoryArticles = [];
-            
-            for (const [category, articles] of Object.entries(postsRegistry)) {
-                const found = articles.find(a => a.id === articleId);
-                if (found) {
-                    article = found;
-                    categoryArticles = articles;
-                    currentCategory = category;
-                    break;
-                }
-            }
-            
-            if (!article) {
-                console.error('Article not found:', articleId);
-                return;
-            }
-            
-            currentArticle = article;
-            currentArticleIndex = categoryArticles.indexOf(article);
-            
-            // Show article page
-            showPage('article-view');
-            
-            // Update page content
-            document.getElementById('article-title').textContent = article.title;
-            document.getElementById('article-meta').innerHTML = `
-                <span>${article.date}</span>
-                <span>${getCategoryDisplayName(article.category)}</span>
-                ${article.readTime ? `<span>${article.readTime}</span>` : ''}
-            `;
-            document.getElementById('article-tags-display').innerHTML = 
-                article.tags.map(tag => `<span class="tag">${tag}</span>`).join('');
-            
-            // Update navigation buttons
-            const backButton = document.getElementById('back-button');
-            backButton.textContent = `回${getCategoryDisplayName(article.category)}首頁`;
-            
-            const prevButton = document.getElementById('prev-button');
-            const nextButton = document.getElementById('next-button');
-            
-            if (currentArticleIndex > 0) {
-                prevButton.classList.remove('disabled');
-                prevButton.onclick = () => navigateArticle('prev');
-            } else {
-                prevButton.classList.add('disabled');
-                prevButton.onclick = null;
-            }
-            
-            if (currentArticleIndex < categoryArticles.length - 1) {
-                nextButton.classList.remove('disabled');
-                nextButton.onclick = () => navigateArticle('next');
-            } else {
-                nextButton.classList.add('disabled');
-                nextButton.onclick = null;
-            }
-            
-            // Load article content from _posts folder
-            try {
-                const response = await fetch(`_posts/${article.filename}`);
-                if (response.ok) {
-                    const content = await response.text();
-                    document.getElementById('article-content').innerHTML = content;
-                } else {
-                    // Fallback for demo - in real implementation, this would load from _posts
-                    document.getElementById('article-content').innerHTML = getDemoArticleContent(articleId);
-                }
-            } catch (error) {
-                console.error('Error loading article:', error);
-                // Fallback content for demo
-                document.getElementById('article-content').innerHTML = getDemoArticleContent(articleId);
-            }
-        }
-
-        // Get demo article content (replace with actual file loading)
-        function getDemoArticleContent(articleId) {
-            if (articleId === '2025-03-27-korean-microsushi') {
-                return `
-                    <h3>▋永續以及未來食物</h3>
-                    <p>根據聯合國網站，永續食物(sustainable food system, SFS)分為三個面向：</p>
-                    <ul style="margin-left: 20px; margin-bottom: 15px;">
-                        <li><strong>經濟永續(Economic sustainability)：</strong>可以賺錢，有足夠的食物等等。</li>
-                        <li><strong>社會永續(Social sustainability)：</strong>對社會有益，包括勞工權益和動物福祉等等。</li>
-                        <li><strong>環境永續(Environmental sustainability)：</strong>和對環境的影響很低，或是有正面影響。</li>
-                    </ul>
-                    <p>由於永續議題興起，有些食材和食物開始流行了起來，包括植物肉、培養肉之類的替代性蛋白質等等。</p>
-                    
-                    <p>替代性蛋白質中，較有名的大概是 Beyond Meat，可能有人以為這是培養肉(cultured meat)，但其實它是植物性肉類(plant-based meat)。目前上市的培養肉公司有 UPSIDE Food 和 GOOD Meat，培養肉市場預估在 2034 年的時候可達到 $1.1B 美元。</p>
-                    
-                    <p>除了培養肉和植物性肉類外，另一個則是昆蟲類蛋白質(insect-derived proteins)，市面上販售的主要是蟋蟀相關產品，例如蟋蟀蛋白粉或是蟋蟀能量棒等等。</p>
-                    
-                    <p>我覺得比較特別的是 3D 列印食物(3D-printed foods)，其中一家公司 Foodini 是採用訂閱制，可以跟它租 3D 列印的機器，每個月 $580 美元，如果租的時間就長，每月的費用就比單月租少，在日本等等沒有提供月租制的國家則是可以直接買機器。</p>
-
-                    <h3>▋微壽司 — 另類培養肉</h3>
-                    <p>雖然培養肉算是個熱門議題，也有不少公司在做培養肉，之前韓劇「支配物種」就是講關於培養肉的。</p>
-                    
-                    <p>不過，培養出一整塊的牛肉太麻煩又太費時了，韓國延世大學的研究團隊研發了一款富含蛋白質的「微牛肉壽司」，直接用牛肉細胞去包裹米粒。除了牛肉細胞、還可以用其他細胞，看你想吃啥就用什麼細胞去包米。</p>
-                    
-                    <p>他們首先用魚的膠質裹住米粒，然後鋪在培養皿中，再把牛的肌肉細胞和脂肪細胞丟進去，讓它們附著在米粒表面生長，也試了不同種類的細胞。之後，測量了這種微壽司的營養成分，結果是每吃 100 公克的微壽司相當於吃進 100 克的米和 1 克的牛肉。</p>
-
-                    <h3>🌾 米的準備</h3>
-                    <p>他們用米是韓國本地產的，把魚膠溶液和轉谷氨酰胺酶以 1:1 的比例混合後，在 45°C 的溫度下攪拌 15 分鐘，然後把米加進去再攪拌 5 分鐘，在常溫下靜置 10 分鐘，把冰在冰箱 12 個小時。</p>
-                    
-                    <p>基於永續的因素，他們選擇魚類的膠質而非動物的，魚類的比較便宜但是相對比較不穩定。轉谷氨酰胺酶(microbial transglutaminase)是用日本味之素(Ajinomoto)出產的，是個常見的食品添加酵素，可以把膠質中 glutamine 和 lysine 側鏈之間形成共價鍵，同時也可以幫助澱粉和膠之間的結合，並增強米的穩定度。</p>
-
-                    <h3>🧫 肉的培養和分化</h3>
-                    <p>牛細胞的來源是 29-31 個月大的韓牛肌肉和脂肪。</p>
-                    
-                    <p>消毒過的米粒放在培養盤中，然後分別把 myoblast 和 adMSCs 細胞加進去，先培養 18 個小時讓細胞黏著在米粒上後，轉移到新的培養皿中再養個 5 到 7 天讓它增生，每天換培養液，之後讓它分化。</p>
-                    
-                    <ul style="margin-left: 20px; margin-bottom: 15px;">
-                        <li>肌肉培養成 myoblast，然後分化成 myotubes 或是 myofibres</li>
-                        <li>脂肪組織培養成 adMSCs，然後分化成脂肪細胞(adipocyte)</li>
-                    </ul>
-                    
-                    <p>細胞分化好後，把包覆有分化細胞的米粒洗一洗以去掉培養液和一些雜質，接著把水倒掉，加入兩倍的水，微波 2 分鐘，常溫 5 分鐘，再重複一次。</p>
-
-                    <h3>🍣 微壽司的營養成分</h3>
-                    <p>在比較了不同細胞和培養條件後，他們發現：</p>
-                    <ul style="margin-left: 20px; margin-bottom: 15px;">
-                        <li>細胞在有魚膠包覆的米粒上分化的比較好：米在潮濕的環境或是放久了，會因為米本身的酵素導致結構崩壞，變得粉粉或爛爛的，但是魚膠包裹後形成的連結(bonding)會增加結構穩定性。</li>
-                        <li>myoblast 在有魚膠包覆的米粒上繁殖的比較好，細胞的密度比較高，adMSC 則沒太大差別。</li>
-                        <li>肌肉細胞裡 actin 和 mysoin 加熱後會因為 denature 的關係，口感會比較硬和脆，因為澱粉鍊較短，所以也比較不黏。</li>
-                        <li>微壽司所含的碳水化合物、蛋白質和脂肪都比純米要高，碳水化合物多了 0.16 g，蛋白質多了 310 mg，脂肪則多了 10 mg。</li>
-                    </ul>
-                    
-                    <p>價格上的話，他們估計這種微壽司米每公斤的批發價只會比普通米貴 $0.03 美元。</p>
-                    
-                    <p><strong>大家會想直接吃肉配飯，還是會想吃這種微壽司呢？</strong></p>
-                    
-                    <hr style="margin: 24px 0; border: none; border-top: 1px solid #d0d7de;">
-                    
-                    <h3>📚 參考資料</h3>
-                    <p><strong>Articles:</strong></p>
-                    <p><a href="https://openknowledge.fao.org/server/api/core/bitstreams/b620989c-407b-4caf-a152-f790f55fec71/content" target="_blank">Sustainable food systems - FAO</a></p>
-                    <p><a href="https://www.nature.com/articles/d41586-024-00398-w" target="_blank">Introducing meat–rice: grain with added muscles beefs up protein - Nature</a></p>
-                    <p><a href="https://www.science.org/content/article/rice-covered-cow-cells-aims-provide-nutritious-sustainable-food" target="_blank">Rice covered in cow cells aims to provide nutritious, sustainable food - Science</a></p>
-                    
-                    <p><strong>Publication:</strong></p>
-                    <p>S Park, M Lee, S Jung et al. Rice grains integrated with animal cells: A shortcut to a sustainable food system. Matter (2024)<br>
-                    DOI: <a href="https://www.cell.com/matter/abstract/S2590-2385%2824%2900016-X" target="_blank">10.1016/j.matt.2024.01.015</a></p>
-                `;
-            }
-            
-            // Default fallback for other articles
-            return `
-                <div class="error">
-                    <h3>文章內容暫未提供</h3>
-                    <p>此文章的完整內容尚未建立。請在 _posts/${articleId}.html 中新增內容。</p>
-                </div>
-            `;
-        }
-
-        // Navigate between articles
-        function navigateArticle(direction) {
-            if (!currentArticle) return;
-            
-            const categoryArticles = postsRegistry[currentCategory];
-            if (!categoryArticles) return;
-            
-            let newIndex = currentArticleIndex;
-            if (direction === 'prev' && currentArticleIndex > 0) {
-                newIndex = currentArticleIndex - 1;
-            } else if (direction === 'next' && currentArticleIndex < categoryArticles.length - 1) {
-                newIndex = currentArticleIndex + 1;
-            }
-            
-            if (newIndex !== currentArticleIndex) {
-                loadArticle(categoryArticles[newIndex].id);
-            }
-        }
-
-        // Go back to category page
-        function goBackToCategory() {
-            if (currentCategory && currentCategory !== 'home') {
-                showPage(currentCategory);
-            } else {
-                showPage('home');
-            }
-        }
-
-        // Get display name for category
-        function getCategoryDisplayName(category) {
-            const names = {
-                'research': '研究發現',
-                'industry-news': '業界新聞',
-                'biotech-companies': '生技藥廠公司文',
-                'career': '職涯相關',
-                'life-chat': '生活閒聊'
-            };
-            return names[category] || category;
-        }
-
-        // Filter functionality
-        function filterByTag(type, value) {
-            console.log(`Filtering by ${type}: ${value}`);
-            
-            const categoryArticles = postsRegistry[currentCategory] || [];
-            const container = document.getElementById(`${currentCategory}-articles`);
-            
-            if (!container) return;
-            
-            // Toggle active state on clicked tag
-            const clickedTag = event.target;
-            const isActive = clickedTag.classList.contains('active');
-            
-            // Remove active from all tags in the same group
-            const parentGroup = clickedTag.closest('.filter-group');
-            const tags = parentGroup.querySelectorAll('.tag');
-            tags.forEach(tag => tag.classList.remove('active'));
-            
-            if (!isActive) {
-                clickedTag.classList.add('active');
-                
-                // Create filter mapping for better matching
-                const filterMapping = {
-                    // Research area filters
-                    'cultured-meat': ['培養肉', '細胞培養', '人造肉'],
-                    'biotechnology': ['生物技術', '生技', 'biotech'],
-                    'genetics': ['基因學', '基因', '遺傳學', 'CRISPR', '基因編輯'],
-                    'immunology': ['免疫學', '免疫', '疫苗'],
-                    'neuroscience': ['神經科學', '神經', '阿茲海默', '腦'],
-                    'oncology': ['腫瘤學', '癌症', '腫瘤'],
-                    
-                    // Company filters  
-                    'pfizer': ['Pfizer', 'pfizer', '輝瑞'],
-                    'moderna': ['Moderna', 'moderna', '莫德納'],
-                    'roche': ['Roche', 'roche', '羅氏'],
-                    'novartis': ['Novartis', 'novartis', '諾華'],
-                    'johnson-johnson': ['Johnson & Johnson', 'J&J', '嬌生'],
-                    
-                    // Drug type filters
-                    'covid-vaccine': ['COVID疫苗', 'covid', 'coronavirus', '新冠疫苗'],
-                    'cancer-drug': ['癌症藥物', '抗癌藥', '腫瘤藥物'],
-                    'diabetes-drug': ['糖尿病藥物', '胰島素'],
-                    'alzheimer-drug': ['阿茲海默症藥物', '失智症藥物'],
-                    
-                    // Disease filters
-                    'cancer': ['癌症', '腫瘤', '惡性腫瘤'],
-                    'diabetes': ['糖尿病', '胰島素'],
-                    'alzheimer': ['阿茲海默', '失智症', '認知症'],
-                    'covid': ['COVID', 'covid', '新冠', 'coronavirus']
-                };
-                
-                // Filter articles by tag
-                const filteredArticles = categoryArticles.filter(article => {
-                    const searchTerms = filterMapping[value] || [value];
-                    return article.tags.some(tag => 
-                        searchTerms.some(term => 
-                            tag.toLowerCase().includes(term.toLowerCase()) ||
-                            term.toLowerCase().includes(tag.toLowerCase())
-                        )
-                    );
-                });
-                
-                displayFilteredArticles(filteredArticles, container);
-            } else {
-                // Show all articles if tag is deactivated
-                displayFilteredArticles(categoryArticles, container);
-            }
-        }
-
-        // Display filtered articles
-        function displayFilteredArticles(articles, container) {
-            if (articles.length === 0) {
-                container.innerHTML = '<p style="text-align: center; color: #656d76; padding: 40px;">沒有符合條件的文章</p>';
-                return;
-            }
-            
-            container.innerHTML = articles.map(article => `
-                <div class="article-card" onclick="loadArticle('${article.id}')" data-tags="${article.tags.join(',')}" data-date="${article.date}">
-                    <h3 class="article-title">${article.title}</h3>
-                    <div class="article-meta">
-                        <span>${article.date}</span>
-                        <span>${getCategoryDisplayName(article.category)}</span>
-                        ${article.readTime ? `<span>${article.readTime}</span>` : ''}
-                    </div>
-                    <p class="article-summary">${article.summary}</p>
-                    <div class="article-tags">
-                        ${article.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        // Sort functionality
-        function sortByDate(order) {
-            console.log(`Sorting by date: ${order}`);
-            
-            const categoryArticles = postsRegistry[currentCategory] || [];
-            const container = document.getElementById(`${currentCategory}-articles`);
-            
-            if (!container) return;
-            
-            // Toggle active state on tags
-            const clickedTag = event.target;
-            const parentGroup = clickedTag.closest('.filter-group');
-            const tags = parentGroup.querySelectorAll('.tag');
-            tags.forEach(tag => tag.classList.remove('active'));
-            clickedTag.classList.add('active');
-            
-            // Sort articles
-            const sortedArticles = [...categoryArticles].sort((a, b) => {
-                const dateA = new Date(a.date);
-                const dateB = new Date(b.date);
-                
-                if (order === 'newest') {
-                    return dateB - dateA; // Newest first
-                } else {
-                    return dateA - dateB; // Oldest first
-                }
-            });
-            
-            displayFilteredArticles(sortedArticles, container);
-        }
-
-        // Initialize the page
-        document.addEventListener('DOMContentLoaded', function() {
-            // Load posts registry (now synchronous)
-            loadPostsRegistry();
-            
-            // Then show the home page
-            showPage('home');
-        });
-    </script>
-</body>
-</html>
+                            "tags": ["博士", "學術轉工業", "職涯轉
