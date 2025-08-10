@@ -903,14 +903,45 @@
             if (!isActive) {
                 clickedTag.classList.add('active');
                 
+                // Create filter mapping for better matching
+                const filterMapping = {
+                    // Research area filters
+                    'cultured-meat': ['培養肉', '細胞培養', '人造肉'],
+                    'biotechnology': ['生物技術', '生技', 'biotech'],
+                    'genetics': ['基因學', '基因', '遺傳學', 'CRISPR', '基因編輯'],
+                    'immunology': ['免疫學', '免疫', '疫苗'],
+                    'neuroscience': ['神經科學', '神經', '阿茲海默', '腦'],
+                    'oncology': ['腫瘤學', '癌症', '腫瘤'],
+                    
+                    // Company filters  
+                    'pfizer': ['Pfizer', 'pfizer', '輝瑞'],
+                    'moderna': ['Moderna', 'moderna', '莫德納'],
+                    'roche': ['Roche', 'roche', '羅氏'],
+                    'novartis': ['Novartis', 'novartis', '諾華'],
+                    'johnson-johnson': ['Johnson & Johnson', 'J&J', '嬌生'],
+                    
+                    // Drug type filters
+                    'covid-vaccine': ['COVID疫苗', 'covid', 'coronavirus', '新冠疫苗'],
+                    'cancer-drug': ['癌症藥物', '抗癌藥', '腫瘤藥物'],
+                    'diabetes-drug': ['糖尿病藥物', '胰島素'],
+                    'alzheimer-drug': ['阿茲海默症藥物', '失智症藥物'],
+                    
+                    // Disease filters
+                    'cancer': ['癌症', '腫瘤', '惡性腫瘤'],
+                    'diabetes': ['糖尿病', '胰島素'],
+                    'alzheimer': ['阿茲海默', '失智症', '認知症'],
+                    'covid': ['COVID', 'covid', '新冠', 'coronavirus']
+                };
+                
                 // Filter articles by tag
                 const filteredArticles = categoryArticles.filter(article => {
-                    if (type === 'company') {
-                        return article.tags.some(tag => tag.toLowerCase().includes(value.replace('-', ' ')));
-                    } else if (type === 'drug' || type === 'disease' || type === 'area') {
-                        return article.tags.some(tag => tag.toLowerCase().includes(value.replace('-', ' ')));
-                    }
-                    return true;
+                    const searchTerms = filterMapping[value] || [value];
+                    return article.tags.some(tag => 
+                        searchTerms.some(term => 
+                            tag.toLowerCase().includes(term.toLowerCase()) ||
+                            term.toLowerCase().includes(tag.toLowerCase())
+                        )
+                    );
                 });
                 
                 displayFilteredArticles(filteredArticles, container);
