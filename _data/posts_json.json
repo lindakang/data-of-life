@@ -1,0 +1,122 @@
+{
+  "research": [
+    {
+      "id": "2025-03-27-korean-microsushi",
+      "title": "未來食物新浪潮：韓國微壽司 — 米粒大小的壽司",
+      "date": "2025-03-27",
+      "category": "research",
+      "tags": ["培養肉", "永續食物", "韓國延世大學"],
+      "summary": "韓國延世大學研究團隊研發了富含蛋白質的「微牛肉壽司」，直接用牛肉細胞包裹米粒，創造出永續的替代性蛋白質食物。每100公克微壽司相當於100克米和1克牛肉的營養價值。",
+      "readTime": "8 min read",
+      "filename": "2025-03-27-korean-microsushi.html"
+    },
+    {
+      "id": "2025-08-01-crispr-breakthrough",
+      "title": "CRISPR新突破：基因編輯治療遺傳性疾病",
+      "date": "2025-08-01",
+      "category": "research",
+      "tags": ["CRISPR", "基因編輯", "遺傳性疾病", "臨床試驗"],
+      "summary": "最新的CRISPR技術在治療鐮刀型貧血症方面取得重大突破，患者接受治療後症狀顯著改善，為基因編輯療法開啟新篇章。",
+      "readTime": "6 min read",
+      "filename": "2025-08-01-crispr-breakthrough.html"
+    },
+    {
+      "id": "2025-07-15-alzheimer-protein-study",
+      "title": "阿茲海默症新發現：澱粉樣蛋白清除機制",
+      "date": "2025-07-15",
+      "category": "research",
+      "tags": ["阿茲海默症", "澱粉樣蛋白", "神經科學", "藥物開發"],
+      "summary": "科學家發現大腦中新的澱粉樣蛋白清除機制，這項發現可能為阿茲海默症的治療帶來革命性的改變。",
+      "readTime": "7 min read",
+      "filename": "2025-07-15-alzheimer-protein-study.html"
+    }
+  ],
+  "industry-news": [
+    {
+      "id": "2025-08-05-pfizer-acquisition",
+      "title": "Pfizer收購基因治療公司：擴展罕見疾病治療版圖",
+      "date": "2025-08-05",
+      "category": "industry-news",
+      "tags": ["Pfizer", "併購", "基因治療", "罕見疾病"],
+      "summary": "Pfizer宣布以50億美元收購專注於基因治療的生技公司，強化其在罕見疾病治療領域的競爭力。",
+      "readTime": "5 min read",
+      "filename": "2025-08-05-pfizer-acquisition.html"
+    },
+    {
+      "id": "2025-07-28-moderna-mrna-platform",
+      "title": "Moderna擴展mRNA平台：癌症疫苗進入第三期臨床",
+      "date": "2025-07-28",
+      "category": "industry-news",
+      "tags": ["Moderna", "mRNA", "癌症疫苗", "臨床試驗"],
+      "summary": "Moderna的個人化癌症疫苗在第二期試驗中顯示出色效果，現已進入第三期臨床試驗階段，為癌症治療帶來新希望。",
+      "readTime": "6 min read",
+      "filename": "2025-07-28-moderna-mrna-platform.html"
+    }
+  ],
+  "biotech-companies": [
+    {
+      "id": "2025-08-03-illumina-company-profile",
+      "title": "Illumina深度解析：基因定序龍頭的創新之路",
+      "date": "2025-08-03",
+      "category": "biotech-companies",
+      "tags": ["Illumina", "基因定序", "NGS", "公司分析"],
+      "summary": "深入分析基因定序龍頭Illumina的技術優勢、市場地位以及未來發展策略，探討其在精準醫學領域的重要角色。",
+      "readTime": "12 min read",
+      "filename": "2025-08-03-illumina-company-profile.html"
+    },
+    {
+      "id": "2025-07-20-gsk-transformation",
+      "title": "GSK轉型之路：從傳統藥廠到創新生技公司",
+      "date": "2025-07-20",
+      "category": "biotech-companies",
+      "tags": ["GSK", "轉型", "創新", "疫苗"],
+      "summary": "探討GSK如何透過分拆消費者保健業務，專注於處方藥和疫苗開發，成功轉型為創新驅動的生技公司。",
+      "readTime": "10 min read",
+      "filename": "2025-07-20-gsk-transformation.html"
+    }
+  ],
+  "career": [
+    {
+      "id": "2025-08-07-biotech-career-transition",
+      "title": "從學術界到生技業：轉職經驗分享",
+      "date": "2025-08-07",
+      "category": "career",
+      "tags": ["轉職", "學術界", "生技業", "職涯發展"],
+      "summary": "分享從博士後研究員轉職到生技公司的經驗，包括求職準備、面試技巧以及適應新環境的心得。",
+      "readTime": "9 min read",
+      "filename": "2025-08-07-biotech-career-transition.html"
+    },
+    {
+      "id": "2025-07-25-pharma-regulatory-career",
+      "title": "藥廠法規事務職涯指南：入門到進階",
+      "date": "2025-07-25",
+      "category": "career",
+      "tags": ["法規事務", "藥廠", "職涯指南", "專業發展"],
+      "summary": "詳細介紹藥廠法規事務工作內容、所需技能以及職業發展路徑，為有興趣進入此領域的讀者提供實用指南。",
+      "readTime": "11 min read",
+      "filename": "2025-07-25-pharma-regulatory-career.html"
+    }
+  ],
+  "life-chat": [
+    {
+      "id": "2025-08-09-work-life-balance",
+      "title": "生科社畜的工作與生活平衡心得",
+      "date": "2025-08-09",
+      "category": "life-chat",
+      "tags": ["工作生活平衡", "職場心得", "生活感悟"],
+      "summary": "分享在高壓的生科產業中如何維持工作與生活的平衡，以及一些實用的時間管理和紓壓方法。",
+      "readTime": "8 min read",
+      "filename": "2025-08-09-work-life-balance.html"
+    },
+    {
+      "id": "2025-07-30-conference-experience",
+      "title": "參加國際生技會議的收穫與感想",
+      "date": "2025-07-30",
+      "category": "life-chat",
+      "tags": ["會議", "學習", "網路建立", "國際交流"],
+      "summary": "記錄參加BIO International Convention的經驗，分享會議中的學習收穫以及建立專業網絡的心得。",
+      "readTime": "7 min read",
+      "filename": "2025-07-30-conference-experience.html"
+    }
+  ]
+}
