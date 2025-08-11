@@ -900,14 +900,14 @@
                 nextButton.onclick = null;
             }
             
-            // Load article content from _posts folder
+            // Load article content from posts folder
             try {
-                const response = await fetch(`_posts/${article.filename}`);
+                const response = await fetch(`posts/${article.filename}`);
                 if (response.ok) {
                     const content = await response.text();
                     document.getElementById('article-content').innerHTML = content;
                 } else {
-                    // Fallback for demo - in real implementation, this would load from _posts
+                    // Fallback for demo - in real implementation, this would load from posts
                     document.getElementById('article-content').innerHTML = getDemoArticleContent(articleId);
                 }
             } catch (error) {
@@ -991,7 +991,7 @@
             return `
                 <div class="error">
                     <h3>文章內容暫未提供</h3>
-                    <p>此文章的完整內容尚未建立。請在 _posts/${articleId}.html 中新增內容。</p>
+                    <p>此文章的完整內容尚未建立。請在 posts/${articleId}.html 中新增內容。</p>
                 </div>
             `;
         }
