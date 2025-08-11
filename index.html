@@ -42,6 +42,26 @@
             text-align: center;
         }
 
+        .logo-image {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 16px auto;
+            border-radius: 50%;
+            border: 3px solid #0969da;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: white;
+        }
+
+        .logo-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+
         .logo h1 {
             font-size: 24px;
             color: #0969da;
@@ -220,6 +240,16 @@
             color: #656d76;
         }
 
+        .error {
+            text-align: center;
+            padding: 40px;
+            color: #cf222e;
+            background-color: #ffebee;
+            border: 1px solid #ff9999;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
         /* Article Page Styles */
         .article-page {
             max-width: none;
@@ -273,27 +303,6 @@
             margin: 24px 0;
             border: none;
             border-top: 1px solid #d0d7de;
-        }
-
-        /* Image Container Styles - ADDED THIS */
-        .image-container {
-            margin: 24px 0;
-            text-align: center;
-        }
-
-        .image-container img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            border: 1px solid #d0d7de;
-        }
-
-        .image-caption {
-            font-size: 14px;
-            color: #656d76;
-            margin-top: 8px;
-            font-style: italic;
         }
 
         /* Article Navigation */
@@ -388,6 +397,11 @@
                 margin-left: 0;
                 padding: 20px;
             }
+            
+            .logo-image {
+                width: 60px;
+                height: 60px;
+            }
         }
     </style>
 </head>
@@ -396,6 +410,9 @@
         <!-- Left Sidebar -->
         <aside class="sidebar">
             <div class="logo">
+                <div class="logo-image">
+                    <img src="assets/images/cell-logo.png" alt="科學細胞圖標">
+                </div>
                 <h1>不專業學術閒聊</h1>
                 <p>生科社畜的科學閒聊</p>
             </div>
@@ -600,39 +617,169 @@
     </div>
 
     <script>
-        // Posts registry - this would be auto-generated from your _posts folder
-        const postsRegistry = {
-            'research': [
-                {
-                    id: '2025-03-27-korean-microsushi',
-                    title: '未來食物新浪潮：韓國微壽司 — 米粒大小的壽司',
-                    date: '2025-03-27',
-                    category: 'research',
-                    tags: ['培養肉', '永續食物', '韓國延世大學'],
-                    summary: '韓國延世大學研究團隊研發了富含蛋白質的「微牛肉壽司」，直接用牛肉細胞包裹米粒，創造出永續的替代性蛋白質食物。每100公克微壽司相當於100克米和1克牛肉的營養價值。',
-                    readTime: '8 min read',
-                    filename: '2025-03-27-korean-microsushi.html'
-                }
-                // Add more research posts here
-            ],
-            'industry-news': [
-                // Industry news posts would go here
-            ],
-            'biotech-companies': [
-                // Biotech company posts would go here
-            ],
-            'career': [
-                // Career posts would go here
-            ],
-            'life-chat': [
-                // Life chat posts would go here
-            ]
-        };
-
-        // Current state
+        // Posts registry - try to load from external file, fallback to embedded data
+        let postsRegistry = {};
         let currentCategory = 'home';
         let currentArticle = null;
         let currentArticleIndex = -1;
+
+        // Load posts from external JSON file with fallback
+        async function loadPostsRegistry() {
+            try {
+                const response = await fetch('posts.json');
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                postsRegistry = await response.json();
+                console.log('Posts registry loaded from external file successfully');
+                
+                // If we're already on a category page, refresh it
+                if (currentCategory !== 'home' && currentCategory !== 'article-view') {
+                    loadArticlesForCategory(currentCategory);
+                }
+            } catch (error) {
+                console.warn('Could not load external posts.json, using fallback data:', error);
+                
+                // Fallback to embedded data
+                postsRegistry = {
+                    "research": [
+                        {
+                            "id": "2025-03-27-korean-microsushi",
+                            "title": "未來食物新浪潮：韓國微壽司 — 米粒大小的壽司",
+                            "date": "2025-03-27",
+                            "category": "research",
+                            "tags": ["培養肉", "永續食物", "韓國延世大學"],
+                            "summary": "韓國延世大學研究團隊開發了富含蛋白質的「微牛肉壽司」，直接用牛肉細胞包裹米粒，為培養肉技術提供了創新應用。",
+                            "readTime": "8 min read",
+                            "filename": "2025-03-27-korean-microsushi.html"
+                        },
+                        {
+                            "id": "2025-03-20-crispr-advances",
+                            "title": "CRISPR基因編輯技術的最新突破",
+                            "date": "2025-03-20",
+                            "category": "research",
+                            "tags": ["CRISPR", "基因編輯", "遺傳疾病", "生物技術"],
+                            "summary": "科學家們在CRISPR技術上取得重大進展，成功開發出更精確的基因編輯方法，為治療遺傳性疾病帶來新希望。",
+                            "readTime": "7分鐘閱讀",
+                            "filename": "2025-03-20-crispr-advances.html"
+                        },
+                        {
+                            "id": "2025-03-15-neuroscience-breakthrough",
+                            "title": "腦神經科學的重大發現",
+                            "date": "2025-03-15",
+                            "category": "research",
+                            "tags": ["神經科學", "腦科學", "記憶", "阿茲海默"],
+                            "summary": "最新研究揭示了大腦記憶形成的新機制，可能為阿茲海默症等神經退化性疾病的治療開闢新途徑。",
+                            "readTime": "6分鐘閱讀",
+                            "filename": "2025-03-15-neuroscience-breakthrough.html"
+                        }
+                    ],
+                    "industry-news": [
+                        {
+                            "id": "2025-03-25-pfizer-merger",
+                            "title": "Pfizer宣布重大併購案",
+                            "date": "2025-03-25",
+                            "category": "industry-news",
+                            "tags": ["Pfizer", "併購", "生技產業", "藥物開發"],
+                            "summary": "輝瑞製藥公司宣布以150億美元併購一家專注於癌症治療的生技公司，預計將大幅擴展其腫瘤學產品組合。",
+                            "readTime": "4分鐘閱讀",
+                            "filename": "2025-03-25-pfizer-merger.html"
+                        },
+                        {
+                            "id": "2025-03-22-covid-vaccine-update",
+                            "title": "新冠疫苗技術的最新發展",
+                            "date": "2025-03-22",
+                            "category": "industry-news",
+                            "tags": ["COVID疫苗", "Moderna", "疫苗技術", "新冠病毒"],
+                            "summary": "Moderna公司發布了針對新變種病毒的改良疫苗數據，顯示出更好的保護效果和更長的持續時間。",
+                            "readTime": "5分鐘閱讀",
+                            "filename": "2025-03-22-covid-vaccine-update.html"
+                        },
+                        {
+                            "id": "2025-03-18-biotech-funding",
+                            "title": "生技產業投資趨勢分析",
+                            "date": "2025-03-18",
+                            "category": "industry-news",
+                            "tags": ["投資", "生技產業", "資金", "新創公司"],
+                            "summary": "2025年第一季生技產業投資達到新高，細胞治療和基因治療領域受到投資者特別關注。",
+                            "readTime": "6分鐘閱讀",
+                            "filename": "2025-03-18-biotech-funding.html"
+                        }
+                    ],
+                    "biotech-companies": [
+                        {
+                            "id": "2025-03-24-roche-analysis",
+                            "title": "羅氏製藥：個人化醫療的領導者",
+                            "date": "2025-03-24",
+                            "category": "biotech-companies",
+                            "tags": ["Roche", "羅氏", "個人化醫療", "診斷", "腫瘤學"],
+                            "summary": "深度分析羅氏製藥在個人化醫療領域的策略布局，以及其診斷和治療一體化的商業模式。",
+                            "readTime": "8分鐘閱讀",
+                            "filename": "2025-03-24-roche-analysis.html"
+                        },
+                        {
+                            "id": "2025-03-19-novartis-strategy",
+                            "title": "諾華的數位轉型之路",
+                            "date": "2025-03-19",
+                            "category": "biotech-companies",
+                            "tags": ["Novartis", "諾華", "數位轉型", "AI", "藥物開發"],
+                            "summary": "探討諾華如何運用人工智慧和數位技術來加速藥物開發流程，並提升患者照護品質。",
+                            "readTime": "7分鐘閱讀",
+                            "filename": "2025-03-19-novartis-strategy.html"
+                        }
+                    ],
+                    "career": [
+                        {
+                            "id": "2025-03-26-biotech-career-guide",
+                            "title": "生技產業職涯規劃指南",
+                            "date": "2025-03-26",
+                            "category": "career",
+                            "tags": ["職涯規劃", "生技產業", "轉職", "技能發展"],
+                            "summary": "分享在生技產業中不同職業路徑的發展機會，以及如何準備轉職到生技領域的實用建議。",
+                            "readTime": "10分鐘閱讀",
+                            "filename": "2025-03-26-biotech-career-guide.html"
+                        },
+                        {
+                            "id": "2025-03-21-phd-to-industry",
+                            "title": "從學術界到工業界的轉換",
+                            "date": "2025-03-21",
+                            "category": "career",
+                            "tags": ["博士", "學術轉工業", "職涯轉換", "生科背景"],
+                            "summary": "博士畢業生如何成功從學術研究轉向產業界，包括心態調整、技能培養和求職策略。",
+                            "readTime": "8分鐘閱讀",
+                            "filename": "2025-03-21-phd-to-industry.html"
+                        }
+                    ],
+                    "life-chat": [
+                        {
+                            "id": "2025-03-23-work-life-balance",
+                            "title": "生科社畜的工作生活平衡",
+                            "date": "2025-03-23",
+                            "category": "life-chat",
+                            "tags": ["工作生活平衡", "社畜生活", "壓力管理", "生活分享"],
+                            "summary": "在高壓的生科產業中，如何維持工作與生活的平衡，以及一些實用的壓力管理技巧分享。",
+                            "readTime": "5分鐘閱讀",
+                            "filename": "2025-03-23-work-life-balance.html"
+                        },
+                        {
+                            "id": "2025-03-17-conference-experience",
+                            "title": "參加國際會議的心得感想",
+                            "date": "2025-03-17",
+                            "category": "life-chat",
+                            "tags": ["會議", "學術交流", "國際會議", "心得分享"],
+                            "summary": "分享最近參加國際生技會議的經驗，包括有趣的研究發現、networking心得，以及一些會議小插曲。",
+                            "readTime": "6分鐘閱讀",
+                            "filename": "2025-03-17-conference-experience.html"
+                        }
+                    ]
+                };
+                
+                // If we're already on a category page, refresh it
+                if (currentCategory !== 'home' && currentCategory !== 'article-view') {
+                    loadArticlesForCategory(currentCategory);
+                }
+            }
+        }
 
         // Page navigation
         function showPage(pageId) {
@@ -648,7 +795,10 @@
             document.getElementById(pageId).classList.add('active');
             
             // Add active class to appropriate nav link
-            document.querySelector(`[onclick="showPage('${pageId}')"]`).classList.add('active');
+            const targetNavLink = document.querySelector(`[onclick="showPage('${pageId}')"]`);
+            if (targetNavLink) {
+                targetNavLink.classList.add('active');
+            }
             
             // Load articles for the page
             currentCategory = pageId;
@@ -661,6 +811,11 @@
         function loadArticlesForCategory(category) {
             const articles = postsRegistry[category] || [];
             const container = document.getElementById(`${category}-articles`);
+            
+            if (!container) {
+                console.error(`Container not found for category: ${category}`);
+                return;
+            }
             
             if (articles.length === 0) {
                 container.innerHTML = '<p style="text-align: center; color: #656d76; padding: 40px;">此分類暫無文章</p>';
@@ -680,7 +835,7 @@
                         ${article.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
                     </div>
                 </div>
-            `).join('');o
+            `).join('');
         }
 
         // Load individual article
@@ -772,11 +927,6 @@
                         <li><strong>環境永續(Environmental sustainability)：</strong>和對環境的影響很低，或是有正面影響。</li>
                     </ul>
                     <p>由於永續議題興起，有些食材和食物開始流行了起來，包括植物肉、培養肉之類的替代性蛋白質等等。</p>
-
-                    <div class="image-container">
-                        <img src="/nonproscience/assets/images/future-food.png" alt="未來食物">
-                        <p class="image-caption">未來食物</p>
-                    </div>
                     
                     <p>替代性蛋白質中，較有名的大概是 Beyond Meat，可能有人以為這是培養肉(cultured meat)，但其實它是植物性肉類(plant-based meat)。目前上市的培養肉公司有 UPSIDE Food 和 GOOD Meat，培養肉市場預估在 2034 年的時候可達到 $1.1B 美元。</p>
                     
@@ -790,11 +940,6 @@
                     <p>不過，培養出一整塊的牛肉太麻煩又太費時了，韓國延世大學的研究團隊研發了一款富含蛋白質的「微牛肉壽司」，直接用牛肉細胞去包裹米粒。除了牛肉細胞、還可以用其他細胞，看你想吃啥就用什麼細胞去包米。</p>
                     
                     <p>他們首先用魚的膠質裹住米粒，然後鋪在培養皿中，再把牛的肌肉細胞和脂肪細胞丟進去，讓它們附著在米粒表面生長，也試了不同種類的細胞。之後，測量了這種微壽司的營養成分，結果是每吃 100 公克的微壽司相當於吃進 100 克的米和 1 克的牛肉。</p>
-
-                    <div class="image-container">
-                        <img src="/nonproscience/assets/images/microsushi.png" alt="微壽司">
-                        <p class="image-caption">微壽司 - 用牛肉細胞包覆的米粒</p>
-                    </div>
 
                     <h3>🌾 米的準備</h3>
                     <p>他們用米是韓國本地產的，把魚膠溶液和轉谷氨酰胺酶以 1:1 的比例混合後，在 45°C 的溫度下攪拌 15 分鐘，然後把米加進去再攪拌 5 分鐘，在常溫下靜置 10 分鐘，把冰在冰箱 12 個小時。</p>
@@ -839,7 +984,14 @@
                     DOI: <a href="https://www.cell.com/matter/abstract/S2590-2385%2824%2900016-X" target="_blank">10.1016/j.matt.2024.01.015</a></p>
                 `;
             }
-            return '<p>文章內容載入失敗</p>';
+            
+            // Default fallback for other articles
+            return `
+                <div class="error">
+                    <h3>文章內容暫未提供</h3>
+                    <p>此文章的完整內容尚未建立。請在 _posts/${articleId}.html 中新增內容。</p>
+                </div>
+            `;
         }
 
         // Navigate between articles
@@ -885,17 +1037,103 @@
         // Filter functionality
         function filterByTag(type, value) {
             console.log(`Filtering by ${type}: ${value}`);
-            // Add your filtering logic here
             
-            // Toggle active state on tags
+            const categoryArticles = postsRegistry[currentCategory] || [];
+            const container = document.getElementById(`${currentCategory}-articles`);
+            
+            if (!container) return;
+            
+            // Toggle active state on clicked tag
             const clickedTag = event.target;
-            clickedTag.classList.toggle('active');
+            const isActive = clickedTag.classList.contains('active');
+            
+            // Remove active from all tags in the same group
+            const parentGroup = clickedTag.closest('.filter-group');
+            const tags = parentGroup.querySelectorAll('.tag');
+            tags.forEach(tag => tag.classList.remove('active'));
+            
+            if (!isActive) {
+                clickedTag.classList.add('active');
+                
+                // Create filter mapping for better matching
+                const filterMapping = {
+                    // Research area filters
+                    'cultured-meat': ['培養肉', '細胞培養', '人造肉'],
+                    'biotechnology': ['生物技術', '生技', 'biotech'],
+                    'genetics': ['基因學', '基因', '遺傳學', 'CRISPR', '基因編輯'],
+                    'immunology': ['免疫學', '免疫', '疫苗'],
+                    'neuroscience': ['神經科學', '神經', '阿茲海默', '腦'],
+                    'oncology': ['腫瘤學', '癌症', '腫瘤'],
+                    
+                    // Company filters  
+                    'pfizer': ['Pfizer', 'pfizer', '輝瑞'],
+                    'moderna': ['Moderna', 'moderna', '莫德納'],
+                    'roche': ['Roche', 'roche', '羅氏'],
+                    'novartis': ['Novartis', 'novartis', '諾華'],
+                    'johnson-johnson': ['Johnson & Johnson', 'J&J', '嬌生'],
+                    
+                    // Drug type filters
+                    'covid-vaccine': ['COVID疫苗', 'covid', 'coronavirus', '新冠疫苗'],
+                    'cancer-drug': ['癌症藥物', '抗癌藥', '腫瘤藥物'],
+                    'diabetes-drug': ['糖尿病藥物', '胰島素'],
+                    'alzheimer-drug': ['阿茲海默症藥物', '失智症藥物'],
+                    
+                    // Disease filters
+                    'cancer': ['癌症', '腫瘤', '惡性腫瘤'],
+                    'diabetes': ['糖尿病', '胰島素'],
+                    'alzheimer': ['阿茲海默', '失智症', '認知症'],
+                    'covid': ['COVID', 'covid', '新冠', 'coronavirus']
+                };
+                
+                // Filter articles by tag
+                const filteredArticles = categoryArticles.filter(article => {
+                    const searchTerms = filterMapping[value] || [value];
+                    return article.tags.some(tag => 
+                        searchTerms.some(term => 
+                            tag.toLowerCase().includes(term.toLowerCase()) ||
+                            term.toLowerCase().includes(tag.toLowerCase())
+                        )
+                    );
+                });
+                
+                displayFilteredArticles(filteredArticles, container);
+            } else {
+                // Show all articles if tag is deactivated
+                displayFilteredArticles(categoryArticles, container);
+            }
+        }
+
+        // Display filtered articles
+        function displayFilteredArticles(articles, container) {
+            if (articles.length === 0) {
+                container.innerHTML = '<p style="text-align: center; color: #656d76; padding: 40px;">沒有符合條件的文章</p>';
+                return;
+            }
+            
+            container.innerHTML = articles.map(article => `
+                <div class="article-card" onclick="loadArticle('${article.id}')" data-tags="${article.tags.join(',')}" data-date="${article.date}">
+                    <h3 class="article-title">${article.title}</h3>
+                    <div class="article-meta">
+                        <span>${article.date}</span>
+                        <span>${getCategoryDisplayName(article.category)}</span>
+                        ${article.readTime ? `<span>${article.readTime}</span>` : ''}
+                    </div>
+                    <p class="article-summary">${article.summary}</p>
+                    <div class="article-tags">
+                        ${article.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+                    </div>
+                </div>
+            `).join('');
         }
 
         // Sort functionality
         function sortByDate(order) {
             console.log(`Sorting by date: ${order}`);
-            // Add your sorting logic here
+            
+            const categoryArticles = postsRegistry[currentCategory] || [];
+            const container = document.getElementById(`${currentCategory}-articles`);
+            
+            if (!container) return;
             
             // Toggle active state on tags
             const clickedTag = event.target;
@@ -903,10 +1141,28 @@
             const tags = parentGroup.querySelectorAll('.tag');
             tags.forEach(tag => tag.classList.remove('active'));
             clickedTag.classList.add('active');
+            
+            // Sort articles
+            const sortedArticles = [...categoryArticles].sort((a, b) => {
+                const dateA = new Date(a.date);
+                const dateB = new Date(b.date);
+                
+                if (order === 'newest') {
+                    return dateB - dateA; // Newest first
+                } else {
+                    return dateA - dateB; // Oldest first
+                }
+            });
+            
+            displayFilteredArticles(sortedArticles, container);
         }
 
         // Initialize the page
         document.addEventListener('DOMContentLoaded', function() {
+            // Load posts registry (now synchronous)
+            loadPostsRegistry();
+            
+            // Then show the home page
             showPage('home');
         });
     </script>
