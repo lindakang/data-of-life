@@ -783,7 +783,7 @@
             }
         }
 
-        // Page navigation
+// Page navigation
         function showPage(pageId) {
             // Hide all pages
             const pages = document.querySelectorAll('.page');
@@ -802,8 +802,12 @@
                 targetNavLink.classList.add('active');
             }
             
+            // 只有在不是文章頁面時，才更新當前的分類
+            if (pageId !== 'article-view') {
+                currentCategory = pageId;
+            }
+            
             // Load articles for the page
-            currentCategory = pageId;
             if (pageId !== 'home' && pageId !== 'article-view') {
                 loadArticlesForCategory(pageId);
             }
