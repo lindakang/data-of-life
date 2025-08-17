@@ -4,35 +4,41 @@
 
 <h3>資料集</h3>
 <p>資料來源為 <a href="https://www.kaggle.com/datasets/datasnaek/youtube-new" target="_blank" rel="noopener noreferrer">Trending YouTube Video Statistics</a>，裡面有美國、英國、德國、加拿大、法國等等的發燒影片數據，每天會更新。</p>
-<p><strong>資料分類：</strong></p>
-        /* --- ↓↓↓ 新增的表格樣式 ↓↓↓ --- */
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 24px 0;
-        }
+<p><strong>使用的資料集：</strong></p>
+<ul>
+  <li>USvideos.csv</li>
+  <li>CAvideos.csv</li>
+</ul>
 
-        th, td {
-            padding: 12px 15px;
-            border-bottom: 1px solid #d0d7de;
-            text-align: left;
-        }
+<p><strong>YouTube Category ID:</strong></p>
+<table style="width:100%; border-collapse: collapse; text-align: left;">
+  <thead>
+    <tr style="background-color: #f2f2f2;">
+      <th style="padding: 8px; border: 1px solid #ddd;">ID</th>
+      <th style="padding: 8px; border: 1px solid #ddd;">Category</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td style="padding: 8px; border: 1px solid #ddd;">1</td><td style="padding: 8px; border: 1px solid #ddd;">Film & Animation</td></tr>
+    <tr><td style="padding: 8px; border: 1px solid #ddd;">2</td><td style="padding: 8px; border: 1px solid #ddd;">Autos</td></tr>
+    <tr><td style="padding: 8px; border: 1px solid #ddd;">10</td><td style="padding: 8px; border: 1px solid #ddd;">Music</td></tr>
+    <tr><td style="padding: 8px; border: 1px solid #ddd;">15</td><td style="padding: 8px; border: 1px solid #ddd;">Pets & Animals</td></tr>
+    <tr><td style="padding: 8px; border: 1px solid #ddd;">17</td><td style="padding: 8px; border: 1px solid #ddd;">Sport</td></tr>
+    <tr><td style="padding: 8px; border: 1px solid #ddd;">19</td><td style="padding: 8px; border: 1px solid #ddd;">Travel & Events</td></tr>
+    <tr><td style="padding: 8px; border: 1px solid #ddd;">20</td><td style="padding: 8px; border: 1px solid #ddd;">Gaming</td></tr>
+    <tr><td style="padding: 8px; border: 1px solid #ddd;">21</td><td style="padding: 8px; border: 1px solid #ddd;">Vlogging</td></tr>
+    <tr><td style="padding: 8px; border: 1px solid #ddd;">22</td><td style="padding: 8px; border: 1px solid #ddd;">Blogs</td></tr>
+    <tr><td style="padding: 8px; border: 1px solid #ddd;">23</td><td style="padding: 8px; border: 1px solid #ddd;">Comedy</td></tr>
+    <tr><td style="padding: 8px; border: 1px solid #ddd;">24</td><td style="padding: 8px; border: 1px solid #ddd;">Entertainment</td></tr>
+    <tr><td style="padding: 8px; border: 1px solid #ddd;">25</td><td style="padding: 8px; border: 1px solid #ddd;">News & Politics</td></tr>
+    <tr><td style="padding: 8px; border: 1px solid #ddd;">26</td><td style="padding: 8px; border: 1px solid #ddd;">Howto & Style</td></tr>
+    <tr><td style="padding: 8px; border: 1px solid #ddd;">27</td><td style="padding: 8px; border: 1px solid #ddd;">Education</td></tr>
+    <tr><td style="padding: 8px; border: 1px solid #ddd;">28</td><td style="padding: 8px; border: 1px solid #ddd;">Science & Technology</td></tr>
+    <tr><td style="padding: 8px; border: 1px solid #ddd;">29</td><td style="padding: 8px; border: 1px solid #ddd;">Nonprofits & Activism</td></tr>
+    <tr><td style="padding: 8px; border: 1px solid #ddd;">43</td><td style="padding: 8px; border: 1px solid #ddd;">Shows</td></tr>
+  </tbody>
+</table>
 
-        th {
-            background-color: #f6f8fa;
-            font-weight: 600;
-        }
-        /* --- ↑↑↑ 新增的表格樣式 ↑↑↑ --- */
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .container {
-                flex-direction: column;
-            }
-            
-            /* --- 省略部分程式碼，保持不變 --- */
-        }
-    </style>
 
 <h3>分析工具</h3>
 <ul>
@@ -42,6 +48,6 @@
 
 <h3>系列文章連結</h3>
 <ul>
-  <li><a href="#" onclick="loadArticle('2022-10-16-yt-us-trending'); return false;">美國 YouTube 發燒影片分析</a></li>
-  <li><a href="#" onclick="loadArticle('2022-10-20-yt-ca-trending'); return false;">加拿大 YouTube 發燒影片分析</a></li>
+  <li><a href="#" onclick="loadArticle('2022-10-16-yt-us-trending'); return false;">US YouTube Trending Analysis</a></li>
+  <li><a href="#" onclick="loadArticle('2022-10-20-yt-ca-trending'); return false;">Canada YouTube Trending Analysis</a></li>
 </ul>
