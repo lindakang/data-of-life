@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>不專業學術閒聊 - 生科社畜的科學閒聊</title>
     <meta name="description" content="這邊會寫一些我覺得有趣的科學新聞、值得關注的業界新聞，或是我有興趣的公司介紹文，不然就是一些生活閒聊。" />
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -132,55 +131,188 @@
             color: #656d76;
             font-size: 16px;
         }
-        
-        /* ... 其他 CSS ... */
-        /* Article Content (for Markdown rendering) */
-        .article-content h1, .article-content h2, .article-content h3 {
-            color: #0969da;
-            margin-top: 24px;
-            margin-bottom: 16px;
-            border-bottom: 1px solid #d0d7de;
-            padding-bottom: 8px;
-        }
-        .article-content code {
+
+        /* Filter Section */
+        .filter-section {
+            margin-bottom: 30px;
+            padding: 20px;
             background-color: #f6f8fa;
-            padding: .2em .4em;
-            margin: 0;
-            font-size: 85%;
-            border-radius: 6px;
-        }
-        .article-content pre {
-            background-color: #f6f8fa;
-            padding: 16px;
-            overflow: auto;
-            line-height: 1.45;
-            border-radius: 6px;
-        }
-        .article-content pre code {
-            padding: 0;
-            margin: 0;
-            font-size: 100%;
-            background-color: transparent;
-        }
-        .article-content table {
-            width: 100%;
-            border-collapse: collapse;
-            text-align: left;
-            margin: 16px 0;
-        }
-        .article-content th, .article-content td {
-            padding: 8px;
-            border: 1px solid #ddd;
-        }
-        .article-content th {
-            background-color: #f2f2f2;
+            border-radius: 8px;
+            border: 1px solid #d0d7de;
         }
 
+        .filter-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: #24292f;
+        }
+
+        .filter-group {
+            margin-bottom: 20px;
+        }
+
+        .filter-group h4 {
+            font-size: 14px;
+            font-weight: 600;
+            color: #656d76;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+
+        .tag-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .tag {
+            padding: 4px 12px;
+            background-color: #ddf4ff;
+            color: #0969da;
+            border: 1px solid #54aeff;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .tag:hover {
+            background-color: #0969da;
+            color: white;
+        }
+
+        .tag.active {
+            background-color: #0969da;
+            color: white;
+        }
+
+        /* Article Cards */
+        .article-grid {
+            display: grid;
+            gap: 24px;
+        }
+
+        .article-card {
+            background: white;
+            border: 1px solid #d0d7de;
+            border-radius: 8px;
+            padding: 24px;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .article-card:hover {
+            border-color: #0969da;
+            box-shadow: 0 3px 12px rgba(9, 105, 218, 0.1);
+        }
+
+        .article-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #24292f;
+            margin-bottom: 8px;
+        }
+
+        .article-meta {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 12px;
+            font-size: 14px;
+            color: #656d76;
+        }
+
+        .article-summary {
+            color: #24292f;
+            margin-bottom: 16px;
+            line-height: 1.5;
+        }
+
+        .article-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        /* Loading State */
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #656d76;
+        }
+
+        .error {
+            text-align: center;
+            padding: 40px;
+            color: #cf222e;
+            background-color: #ffebee;
+            border: 1px solid #ff9999;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        /* Article Page Styles */
+        .article-page {
+            max-width: none;
+        }
+
+        .article-page .page-title {
+            font-size: 28px;
+            margin-bottom: 16px;
+        }
+
+        .article-page .article-meta {
+            font-size: 16px;
+            margin-bottom: 24px;
+            color: #656d76;
+        }
+
+        .article-content {
+            line-height: 1.8;
+            color: #24292f;
+        }
+
+        .article-content h3 {
+            color: #0969da;
+            margin-top: 32px;
+            margin-bottom: 16px;
+            font-size: 20px;
+        }
+
+        .article-content p {
+            margin-bottom: 16px;
+        }
+
+        .article-content ul {
+            margin-bottom: 16px;
+        }
+
+        .article-content li {
+            margin-bottom: 8px;
+        }
+
+        .article-content a {
+            color: #0969da;
+            text-decoration: none;
+        }
+
+        .article-content a:hover {
+            text-decoration: underline;
+        }
+
+        .article-content hr {
+            margin: 24px 0;
+            border: none;
+            border-top: 1px solid #d0d7de;
+        }
+        
         /* Image Container Styles */
         .image-container {
             margin: 24px 0;
             text-align: center;
         }
+
         .image-container img {
             max-width: 100%;
             height: auto;
@@ -188,19 +320,118 @@
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
             border: 1px solid #d0d7de;
         }
+
         .image-caption {
             font-size: 14px;
             color: #656d76;
             margin-top: 8px;
             font-style: italic;
         }
+        
         .img-small {
             width: 50%;
             margin-left: auto;
             margin-right: auto;
         }
-        
-        /* ... 其他 CSS ... */
+
+        /* Article Navigation */
+        .article-navigation {
+            margin-top: 40px;
+            padding-top: 24px;
+            border-top: 2px solid #d0d7de;
+        }
+
+        .article-tags-section {
+            margin-bottom: 24px;
+        }
+
+        .article-tags-section h4 {
+            font-size: 16px;
+            font-weight: 600;
+            color: #24292f;
+            margin-bottom: 12px;
+        }
+
+        .navigation-buttons {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .nav-button {
+            padding: 10px 20px;
+            background-color: #0969da;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            text-align: center;
+            min-width: 120px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .nav-button:hover {
+            background-color: #0550ae;
+            color: white;
+        }
+
+        .nav-button.disabled {
+            background-color: #8c959f;
+            cursor: not-allowed;
+        }
+
+        .nav-button.home {
+            background-color: #6f42c1;
+        }
+
+        .nav-button.home:hover {
+            background-color: #5a32a3;
+        }
+
+        /* Introduction Section */
+        .intro-section {
+            background: linear-gradient(135deg, #f6f8fa 0%, #fff 100%);
+            border: 1px solid #d0d7de;
+            border-radius: 8px;
+            padding: 32px;
+            margin-bottom: 24px;
+        }
+
+        .intro-section h2 {
+            color: #0969da;
+            margin-bottom: 16px;
+        }
+
+        .intro-section p {
+            margin-bottom: 16px;
+            color: #24292f;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: static;
+            }
+            
+            .main-content {
+                margin-left: 0;
+                padding: 20px;
+            }
+            
+            .logo-image {
+                width: 60px;
+                height: 60px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -242,21 +473,191 @@
         </aside>
 
         <main class="main-content">
-            <div id="home" class="page active">...</div>
-            <div id="industry-news" class="page">...</div>
-            <div id="research" class="page">...</div>
-            <div id="biotech-companies" class="page">...</div>
-            <div id="career" class="page">...</div>
-            <div id="life-chat" class="page">...</div>
-            <div id="data-analysis" class="page">...</div>
-            <div id="article-view" class="page article-page">...</div>
+            <div id="home" class="page active">
+                <header class="page-header">
+                    <h1 class="page-title">歡迎來到不專業學術閒聊</h1>
+                    <p class="page-description">生科社畜的科學世界探索之旅</p>
+                </header>
+                
+                <div class="intro-section">
+                    <h2>關於這個 GitHub Page</h2>
+                    <p>歡迎來到我的科學閒聊小天地！這裡會分享一些我覺得有趣的科學新聞、值得關注的業界動態，或是我有興趣的公司介紹文。</p>
+                    <p>身為一個生科領域的社畜，我希望能透過這個平台分享一些專業知識，同時也記錄一些生活感想。</p>
+                    <p>無論你是同行、學生，還是單純對科學有興趣的朋友，都歡迎一起來交流討論！</p>
+                </div>
+
+                <div class="intro-section">
+                    <h2>內容分類</h2>
+                    <p><strong>業界新聞：</strong>生技醫藥產業的最新動態與重要消息</p>
+                    <p><strong>研究發現：</strong>有趣的科學研究與學術發現</p>
+                    <p><strong>生技藥廠公司文：</strong>重要企業的深度分析與介紹</p>
+                    <p><strong>職涯相關：</strong>職業發展、轉職經驗與職場心得分享</p>
+                    <p><strong>生活閒聊：</strong>工作之餘的生活分享與心得</p>
+                    <p><strong>Data Analysis：</strong>資料分析相關的專案與筆記</p>
+                </div>
+            </div>
+
+            <div id="industry-news" class="page">
+                <header class="page-header">
+                    <h1 class="page-title">業界新聞</h1>
+                    <p class="page-description">生技醫藥產業的最新動態與重要消息</p>
+                </header>
+                <div class="article-grid" id="industry-news-articles">
+                    <div class="loading">載入中...</div>
+                </div>
+            </div>
+
+            <div id="research" class="page">
+                <header class="page-header">
+                    <h1 class="page-title">研究發現</h1>
+                    <p class="page-description">有趣的科學研究與學術發現</p>
+                </header>
+                <div class="article-grid" id="research-articles">
+                    <div class="loading">載入中...</div>
+                </div>
+            </div>
+
+            <div id="biotech-companies" class="page">
+                <header class="page-header">
+                    <h1 class="page-title">生技藥廠公司文</h1>
+                    <p class="page-description">重要企業的深度分析與介紹</p>
+                </header>
+                <div class="article-grid" id="biotech-companies-articles">
+                    <div class="loading">載入中...</div>
+                </div>
+            </div>
+
+            <div id="career" class="page">
+                <header class="page-header">
+                    <h1 class="page-title">職涯相關</h1>
+                    <p class="page-description">職業發展、轉職經驗與職場心得分享</p>
+                </header>
+                <div class="article-grid" id="career-articles">
+                    <div class="loading">載入中...</div>
+                </div>
+            </div>
+
+            <div id="life-chat" class="page">
+                <header class="page-header">
+                    <h1 class="page-title">生活閒聊</h1>
+                    <p class="page-description">工作之餘的生活分享與心得</p>
+                </header>
+                <div class="article-grid" id="life-chat-articles">
+                    <div class="loading">載入中...</div>
+                </div>
+            </div>
+
+            <div id="data-analysis" class="page">
+                <header class="page-header">
+                    <h1 class="page-title">Data Analysis</h1>
+                    <p class="page-description">資料分析相關的專案與筆記</p>
+                </header>
+                <div class="article-grid" id="data-analysis-articles">
+                    <div class="loading">載入中...</div>
+                </div>
+            </div>
+
+            <div id="article-view" class="page article-page">
+                <header class="page-header">
+                    <h1 class="page-title" id="article-title">載入中...</h1>
+                    <div class="article-meta" id="article-meta"></div>
+                </header>
+                
+                <div class="article-content" id="article-content">
+                    <div class="loading">載入文章中...</div>
+                </div>
+
+                <div class="article-navigation">
+                    <div class="article-tags-section">
+                        <h4>文章標籤</h4>
+                        <div class="article-tags" id="article-tags-display"></div>
+                    </div>
+                    
+                    <div class="navigation-buttons">
+                        <button onclick="goBackToCategory()" class="nav-button home" id="back-button">回首頁</button>
+                        <button onclick="navigateArticle('prev')" class="nav-button" id="prev-button">上一篇</button>
+                        <button onclick="navigateArticle('next')" class="nav-button" id="next-button">下一篇</button>
+                    </div>
+                </div>
+            </div>
         </main>
     </div>
 
     <script>
-        // ... 其他 JavaScript ...
+        // Posts registry - try to load from external file, fallback to embedded data
+        let postsRegistry = {};
+        let currentCategory = 'home';
+        let currentArticle = null;
+        let currentArticleIndex = -1;
 
-        // 升級步驟 2: 修改 loadArticle 函式
+        async function loadPostsRegistry() {
+            try {
+                const response = await fetch('_data/posts.json');
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                postsRegistry = await response.json();
+                console.log('Posts registry loaded successfully');
+            } catch (error) {
+                console.error('Could not load posts.json:', error);
+                document.querySelector('.main-content').innerHTML = '<div class="error">無法載入文章列表 (posts.json)，請檢查檔案是否存在且格式正確。</div>';
+            }
+        }
+
+        function showPage(pageId) {
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => page.classList.remove('active'));
+            
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => link.classList.remove('active'));
+            
+            document.getElementById(pageId).classList.add('active');
+            
+            const targetNavLink = document.querySelector(`[onclick="showPage('${pageId}')"]`);
+            if (targetNavLink) {
+                targetNavLink.classList.add('active');
+            }
+            
+            if (pageId !== 'article-view') {
+                currentCategory = pageId;
+            }
+            
+            if (pageId !== 'home' && pageId !== 'article-view') {
+                loadArticlesForCategory(pageId);
+            }
+        }
+
+        function loadArticlesForCategory(category) {
+            const articles = postsRegistry[category] || [];
+            const containerId = `${category}-articles`;
+            const container = document.getElementById(containerId);
+            
+            if (!container) {
+                console.error(`Container not found for category: ${category}`);
+                return;
+            }
+            
+            if (articles.length === 0) {
+                container.innerHTML = '<p style="text-align: center; color: #656d76; padding: 40px;">此分類暫無文章</p>';
+                return;
+            }
+            
+            container.innerHTML = articles.map(article => `
+                <div class="article-card" onclick="loadArticle('${article.id}')">
+                    <h3 class="article-title">${article.title}</h3>
+                    <div class="article-meta">
+                        <span>${article.date}</span>
+                        <span>${getCategoryDisplayName(article.category)}</span>
+                        ${article.readTime ? `<span>${article.readTime}</span>` : ''}
+                    </div>
+                    <p class="article-summary">${article.summary}</p>
+                    <div class="article-tags">
+                        ${article.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+                    </div>
+                </div>
+            `).join('');
+        }
+
         async function loadArticle(articleId) {
             let article = null;
             let categoryArticles = [];
@@ -266,6 +667,7 @@
                 if (found) {
                     article = found;
                     categoryArticles = articles;
+                    // Do not change currentCategory here, it was set when entering the category page
                     break;
                 }
             }
@@ -280,36 +682,83 @@
             
             showPage('article-view');
             
-            // ... 更新標題、meta、導覽按鈕的程式碼 (維持不變) ...
-
-            const contentContainer = document.getElementById('article-content');
+            document.getElementById('article-title').textContent = article.title;
+            document.getElementById('article-meta').innerHTML = `
+                <span>${article.date}</span>
+                <span>${getCategoryDisplayName(article.category)}</span>
+                ${article.readTime ? `<span>${article.readTime}</span>` : ''}
+            `;
+            document.getElementById('article-tags-display').innerHTML = 
+                article.tags.map(tag => `<span class="tag">${tag}</span>`).join('');
+            
+            const backButton = document.getElementById('back-button');
+            backButton.textContent = `回${getCategoryDisplayName(article.category)}首頁`;
+            
+            const prevButton = document.getElementById('prev-button');
+            const nextButton = document.getElementById('next-button');
+            
+            prevButton.classList.toggle('disabled', currentArticleIndex <= 0);
+            prevButton.onclick = (currentArticleIndex > 0) ? () => navigateArticle('prev') : null;
+            
+            nextButton.classList.toggle('disabled', currentArticleIndex >= categoryArticles.length - 1);
+            nextButton.onclick = (currentArticleIndex < categoryArticles.length - 1) ? () => navigateArticle('next') : null;
             
             try {
                 const response = await fetch(`posts/${article.filename}`);
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                
-                const rawContent = await response.text();
-                
-                // 檢查檔案類型
-                if (article.filename.endsWith('.md')) {
-                    // 如果是 Markdown 檔案，先移除 YAML Front Matter
-                    const contentWithoutFm = rawContent.replace(/---[\s\S]*?---/, '').trim();
-                    // 使用 Marked.js 進行轉換
-                    contentContainer.innerHTML = marked.parse(contentWithoutFm);
+                if (response.ok) {
+                    const content = await response.text();
+                    document.getElementById('article-content').innerHTML = content;
                 } else {
-                    // 如果是 HTML 檔案，直接顯示
-                    contentContainer.innerHTML = rawContent;
+                    document.getElementById('article-content').innerHTML = `<div class="error">文章內容載入失敗 (posts/${article.filename})。</div>`;
                 }
-
             } catch (error) {
                 console.error('Error loading article:', error);
-                contentContainer.innerHTML = `<div class="error">載入文章時發生錯誤。</div>`;
+                document.getElementById('article-content').innerHTML = `<div class="error">載入文章時發生錯誤。</div>`;
             }
         }
 
-        // ... 其他 JavaScript ...
+        function navigateArticle(direction) {
+            if (!currentArticle) return;
+            
+            const categoryArticles = postsRegistry[currentCategory];
+            if (!categoryArticles) return;
+            
+            let newIndex = currentArticleIndex;
+            if (direction === 'prev' && currentArticleIndex > 0) {
+                newIndex--;
+            } else if (direction === 'next' && currentArticleIndex < categoryArticles.length - 1) {
+                newIndex++;
+            }
+            
+            if (newIndex !== currentArticleIndex) {
+                loadArticle(categoryArticles[newIndex].id);
+            }
+        }
+
+        function goBackToCategory() {
+            if (currentCategory && currentCategory !== 'home') {
+                showPage(currentCategory);
+            } else {
+                showPage('home');
+            }
+        }
+
+        function getCategoryDisplayName(category) {
+            const names = {
+                'research': '研究發現',
+                'industry-news': '業界新聞',
+                'biotech-companies': '生技藥廠公司文',
+                'career': '職涯相關',
+                'life-chat': '生活閒聊',
+                'data-analysis': 'Data Analysis'
+            };
+            return names[category] || category;
+        }
+
+        document.addEventListener('DOMContentLoaded', async function() {
+            await loadPostsRegistry();
+            showPage('home');
+        });
     </script>
 </body>
 </html>
