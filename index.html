@@ -25,35 +25,6 @@
             max-width: 1200px;
             margin: 0 auto;
         }
-        /* --- ↓↓↓ 請將以下所有圖片樣式加到您的 style 區塊中 ↓↓↓ --- */
-
-        /* Image Container Styles */
-        .image-container {
-            margin: 24px 0;
-            text-align: center;
-        }
-
-        .image-container img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            border: 1px solid #d0d7de;
-        }
-
-        .image-caption {
-            font-size: 14px;
-            color: #656d76;
-            margin-top: 8px;
-            font-style: italic;
-        }
-
-        .img-small {
-            width: 50%;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        /* --- ↑↑↑ 請將以上所有圖片樣式加到您的 style 區塊中 ↑↑↑ --- */
 
         /* Left Sidebar */
         .sidebar {
@@ -335,6 +306,33 @@
             border: none;
             border-top: 1px solid #d0d7de;
         }
+        
+        /* Image Container Styles */
+        .image-container {
+            margin: 24px 0;
+            text-align: center;
+        }
+
+        .image-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            border: 1px solid #d0d7de;
+        }
+
+        .image-caption {
+            font-size: 14px;
+            color: #656d76;
+            margin-top: 8px;
+            font-style: italic;
+        }
+        
+        .img-small {
+            width: 50%;
+            margin-left: auto;
+            margin-right: auto;
+        }
 
         /* Article Navigation */
         .article-navigation {
@@ -438,7 +436,6 @@
 </head>
 <body>
     <div class="container">
-        <!-- Left Sidebar -->
         <aside class="sidebar">
             <div class="logo">
                 <div class="logo-image">
@@ -463,18 +460,19 @@
                         <a class="nav-link" onclick="showPage('biotech-companies')">生技藥廠公司文</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" onclick="showPage('careers')">職涯相關</a>
+                        <a class="nav-link" onclick="showPage('career')">職涯相關</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" onclick="showPage('life-chat')">生活閒聊</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" onclick="showPage('data-analysis')">Data Analysis</a>
                     </li>
                 </ul>
             </nav>
         </aside>
 
-        <!-- Main Content -->
         <main class="main-content">
-            <!-- Home Page -->
             <div id="home" class="page active">
                 <header class="page-header">
                     <h1 class="page-title">歡迎來到不專業學術閒聊</h1>
@@ -495,117 +493,46 @@
                     <p><strong>生技藥廠公司文：</strong>重要企業的深度分析與介紹</p>
                     <p><strong>職涯相關：</strong>職業發展、轉職經驗與職場心得分享</p>
                     <p><strong>生活閒聊：</strong>工作之餘的生活分享與心得</p>
+                    <p><strong>Data Analysis：</strong>資料分析相關的專案與筆記</p>
                 </div>
             </div>
 
-            <!-- Industry News Page -->
             <div id="industry-news" class="page">
                 <header class="page-header">
                     <h1 class="page-title">業界新聞</h1>
                     <p class="page-description">生技醫藥產業的最新動態與重要消息</p>
                 </header>
-                
-                <div class="filter-section">
-                    <h3 class="filter-title">篩選新聞</h3>
-                    
-                    <div class="filter-group">
-                        <h4>依公司分類</h4>
-                        <div class="tag-list">
-                            <span class="tag" onclick="filterByTag('company', 'pfizer')">Pfizer</span>
-                            <span class="tag" onclick="filterByTag('company', 'moderna')">Moderna</span>
-                            <span class="tag" onclick="filterByTag('company', 'roche')">Roche</span>
-                            <span class="tag" onclick="filterByTag('company', 'novartis')">Novartis</span>
-                            <span class="tag" onclick="filterByTag('company', 'johnson-johnson')">Johnson & Johnson</span>
-                        </div>
-                    </div>
-
-                    <div class="filter-group">
-                        <h4>依藥物分類</h4>
-                        <div class="tag-list">
-                            <span class="tag" onclick="filterByTag('drug', 'covid-vaccine')">COVID疫苗</span>
-                            <span class="tag" onclick="filterByTag('drug', 'cancer-drug')">癌症藥物</span>
-                            <span class="tag" onclick="filterByTag('drug', 'diabetes-drug')">糖尿病藥物</span>
-                            <span class="tag" onclick="filterByTag('drug', 'alzheimer-drug')">阿茲海默症藥物</span>
-                        </div>
-                    </div>
-
-                    <div class="filter-group">
-                        <h4>依疾病分類</h4>
-                        <div class="tag-list">
-                            <span class="tag" onclick="filterByTag('disease', 'cancer')">癌症</span>
-                            <span class="tag" onclick="filterByTag('disease', 'diabetes')">糖尿病</span>
-                            <span class="tag" onclick="filterByTag('disease', 'alzheimer')">阿茲海默症</span>
-                            <span class="tag" onclick="filterByTag('disease', 'covid')">COVID-19</span>
-                        </div>
-                    </div>
-
-                    <div class="filter-group">
-                        <h4>依日期排序</h4>
-                        <div class="tag-list">
-                            <span class="tag" onclick="sortByDate('newest')">最新消息</span>
-                            <span class="tag" onclick="sortByDate('oldest')">較舊消息</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="article-grid" id="industry-articles">
+                <div class="article-grid" id="industry-news-articles">
                     <div class="loading">載入中...</div>
                 </div>
             </div>
 
-            <!-- Research Page -->
             <div id="research" class="page">
                 <header class="page-header">
                     <h1 class="page-title">研究發現</h1>
                     <p class="page-description">有趣的科學研究與學術發現</p>
                 </header>
-                
-                <div class="filter-section">
-                    <h3 class="filter-title">篩選研究</h3>
-                    
-                    <div class="filter-group">
-                        <h4>依研究領域分類</h4>
-                        <div class="tag-list">
-                            <span class="tag" onclick="filterByTag('area', 'cultured-meat')">培養肉</span>
-                            <span class="tag" onclick="filterByTag('area', 'biotechnology')">生物技術</span>
-                            <span class="tag" onclick="filterByTag('area', 'genetics')">基因學</span>
-                            <span class="tag" onclick="filterByTag('area', 'immunology')">免疫學</span>
-                            <span class="tag" onclick="filterByTag('area', 'neuroscience')">神經科學</span>
-                            <span class="tag" onclick="filterByTag('area', 'oncology')">腫瘤學</span>
-                        </div>
-                    </div>
-
-                    <div class="filter-group">
-                        <h4>依日期排序</h4>
-                        <div class="tag-list">
-                            <span class="tag" onclick="sortByDate('newest')">最新研究</span>
-                            <span class="tag" onclick="sortByDate('oldest')">較舊研究</span>
-                        </div>
-                    </div>
-                </div>
-
                 <div class="article-grid" id="research-articles">
                     <div class="loading">載入中...</div>
                 </div>
             </div>
 
-            <!-- Other category pages -->
             <div id="biotech-companies" class="page">
                 <header class="page-header">
                     <h1 class="page-title">生技藥廠公司文</h1>
                     <p class="page-description">重要企業的深度分析與介紹</p>
                 </header>
-                <div class="article-grid" id="biotech-articles">
+                <div class="article-grid" id="biotech-companies-articles">
                     <div class="loading">載入中...</div>
                 </div>
             </div>
 
-            <div id="careers" class="page">
+            <div id="career" class="page">
                 <header class="page-header">
                     <h1 class="page-title">職涯相關</h1>
                     <p class="page-description">職業發展、轉職經驗與職場心得分享</p>
                 </header>
-                <div class="article-grid" id="careers-articles">
+                <div class="article-grid" id="career-articles">
                     <div class="loading">載入中...</div>
                 </div>
             </div>
@@ -615,12 +542,21 @@
                     <h1 class="page-title">生活閒聊</h1>
                     <p class="page-description">工作之餘的生活分享與心得</p>
                 </header>
-                <div class="article-grid" id="life-articles">
+                <div class="article-grid" id="life-chat-articles">
                     <div class="loading">載入中...</div>
                 </div>
             </div>
 
-            <!-- Dynamic Article Page -->
+            <div id="data-analysis" class="page">
+                <header class="page-header">
+                    <h1 class="page-title">Data Analysis</h1>
+                    <p class="page-description">資料分析相關的專案與筆記</p>
+                </header>
+                <div class="article-grid" id="data-analysis-articles">
+                    <div class="loading">載入中...</div>
+                </div>
+            </div>
+
             <div id="article-view" class="page article-page">
                 <header class="page-header">
                     <h1 class="page-title" id="article-title">載入中...</h1>
@@ -654,198 +590,47 @@
         let currentArticle = null;
         let currentArticleIndex = -1;
 
-        // Load posts from external JSON file with fallback
         async function loadPostsRegistry() {
             try {
-                const response = await fetch('posts.json');
+                const response = await fetch('_data/posts.json');
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
                 postsRegistry = await response.json();
-                console.log('Posts registry loaded from external file successfully');
-                
-                // If we're already on a category page, refresh it
-                if (currentCategory !== 'home' && currentCategory !== 'article-view') {
-                    loadArticlesForCategory(currentCategory);
-                }
+                console.log('Posts registry loaded successfully');
             } catch (error) {
-                console.warn('Could not load external posts.json, using fallback data:', error);
-                
-                // Fallback to embedded data
-                postsRegistry = {
-                    "research": [
-                        {
-                            "id": "2025-03-27-korean-microsushi",
-                            "title": "未來食物新浪潮：韓國微壽司 — 米粒大小的壽司",
-                            "date": "2025-03-27",
-                            "category": "research",
-                            "tags": ["培養肉", "永續食物", "韓國延世大學"],
-                            "summary": "韓國延世大學研究團隊開發了富含蛋白質的「微牛肉壽司」，直接用牛肉細胞包裹米粒，為培養肉技術提供了創新應用。",
-                            "readTime": "8 min read",
-                            "filename": "2025-03-27-korean-microsushi.html"
-                        },
-                        {
-                            "id": "2025-03-20-crispr-advances",
-                            "title": "CRISPR基因編輯技術的最新突破",
-                            "date": "2025-03-20",
-                            "category": "research",
-                            "tags": ["CRISPR", "基因編輯", "遺傳疾病", "生物技術"],
-                            "summary": "科學家們在CRISPR技術上取得重大進展，成功開發出更精確的基因編輯方法，為治療遺傳性疾病帶來新希望。",
-                            "readTime": "7分鐘閱讀",
-                            "filename": "2025-03-20-crispr-advances.html"
-                        },
-                        {
-                            "id": "2025-03-15-neuroscience-breakthrough",
-                            "title": "腦神經科學的重大發現",
-                            "date": "2025-03-15",
-                            "category": "research",
-                            "tags": ["神經科學", "腦科學", "記憶", "阿茲海默"],
-                            "summary": "最新研究揭示了大腦記憶形成的新機制，可能為阿茲海默症等神經退化性疾病的治療開闢新途徑。",
-                            "readTime": "6分鐘閱讀",
-                            "filename": "2025-03-15-neuroscience-breakthrough.html"
-                        }
-                    ],
-                    "industry-news": [
-                        {
-                            "id": "2025-03-25-pfizer-merger",
-                            "title": "Pfizer宣布重大併購案",
-                            "date": "2025-03-25",
-                            "category": "industry-news",
-                            "tags": ["Pfizer", "併購", "生技產業", "藥物開發"],
-                            "summary": "輝瑞製藥公司宣布以150億美元併購一家專注於癌症治療的生技公司，預計將大幅擴展其腫瘤學產品組合。",
-                            "readTime": "4分鐘閱讀",
-                            "filename": "2025-03-25-pfizer-merger.html"
-                        },
-                        {
-                            "id": "2025-03-22-covid-vaccine-update",
-                            "title": "新冠疫苗技術的最新發展",
-                            "date": "2025-03-22",
-                            "category": "industry-news",
-                            "tags": ["COVID疫苗", "Moderna", "疫苗技術", "新冠病毒"],
-                            "summary": "Moderna公司發布了針對新變種病毒的改良疫苗數據，顯示出更好的保護效果和更長的持續時間。",
-                            "readTime": "5分鐘閱讀",
-                            "filename": "2025-03-22-covid-vaccine-update.html"
-                        },
-                        {
-                            "id": "2025-03-18-biotech-funding",
-                            "title": "生技產業投資趨勢分析",
-                            "date": "2025-03-18",
-                            "category": "industry-news",
-                            "tags": ["投資", "生技產業", "資金", "新創公司"],
-                            "summary": "2025年第一季生技產業投資達到新高，細胞治療和基因治療領域受到投資者特別關注。",
-                            "readTime": "6分鐘閱讀",
-                            "filename": "2025-03-18-biotech-funding.html"
-                        }
-                    ],
-                    "biotech-companies": [
-                        {
-                            "id": "2025-03-24-roche-analysis",
-                            "title": "羅氏製藥：個人化醫療的領導者",
-                            "date": "2025-03-24",
-                            "category": "biotech-companies",
-                            "tags": ["Roche", "羅氏", "個人化醫療", "診斷", "腫瘤學"],
-                            "summary": "深度分析羅氏製藥在個人化醫療領域的策略布局，以及其診斷和治療一體化的商業模式。",
-                            "readTime": "8分鐘閱讀",
-                            "filename": "2025-03-24-roche-analysis.html"
-                        },
-                        {
-                            "id": "2025-03-19-novartis-strategy",
-                            "title": "諾華的數位轉型之路",
-                            "date": "2025-03-19",
-                            "category": "biotech-companies",
-                            "tags": ["Novartis", "諾華", "數位轉型", "AI", "藥物開發"],
-                            "summary": "探討諾華如何運用人工智慧和數位技術來加速藥物開發流程，並提升患者照護品質。",
-                            "readTime": "7分鐘閱讀",
-                            "filename": "2025-03-19-novartis-strategy.html"
-                        }
-                    ],
-                    "careers": [
-                        {
-                            "id": "2025-03-26-biotech-career-guide",
-                            "title": "生技產業職涯規劃指南",
-                            "date": "2025-03-26",
-                            "category": "careers",
-                            "tags": ["職涯規劃", "生技產業", "轉職", "技能發展"],
-                            "summary": "分享在生技產業中不同職業路徑的發展機會，以及如何準備轉職到生技領域的實用建議。",
-                            "readTime": "10分鐘閱讀",
-                            "filename": "2025-03-26-biotech-career-guide.html"
-                        },
-                        {
-                            "id": "2025-03-21-phd-to-industry",
-                            "title": "從學術界到工業界的轉換",
-                            "date": "2025-03-21",
-                            "category": "careers",
-                            "tags": ["博士", "學術轉工業", "職涯轉換", "生科背景"],
-                            "summary": "博士畢業生如何成功從學術研究轉向產業界，包括心態調整、技能培養和求職策略。",
-                            "readTime": "8分鐘閱讀",
-                            "filename": "2025-03-21-phd-to-industry.html"
-                        }
-                    ],
-                    "life-chat": [
-                        {
-                            "id": "2025-03-23-work-life-balance",
-                            "title": "生科社畜的工作生活平衡",
-                            "date": "2025-03-23",
-                            "category": "life-chat",
-                            "tags": ["工作生活平衡", "社畜生活", "壓力管理", "生活分享"],
-                            "summary": "在高壓的生科產業中，如何維持工作與生活的平衡，以及一些實用的壓力管理技巧分享。",
-                            "readTime": "5分鐘閱讀",
-                            "filename": "2025-03-23-work-life-balance.html"
-                        },
-                        {
-                            "id": "2025-03-17-conference-experience",
-                            "title": "參加國際會議的心得感想",
-                            "date": "2025-03-17",
-                            "category": "life-chat",
-                            "tags": ["會議", "學術交流", "國際會議", "心得分享"],
-                            "summary": "分享最近參加國際生技會議的經驗，包括有趣的研究發現、networking心得，以及一些會議小插曲。",
-                            "readTime": "6分鐘閱讀",
-                            "filename": "2025-03-17-conference-experience.html"
-                        }
-                    ]
-                };
-                
-                // If we're already on a category page, refresh it
-                if (currentCategory !== 'home' && currentCategory !== 'article-view') {
-                    loadArticlesForCategory(currentCategory);
-                }
+                console.error('Could not load posts.json:', error);
+                document.querySelector('.main-content').innerHTML = '<div class="error">無法載入文章列表 (posts.json)，請檢查檔案是否存在且格式正確。</div>';
             }
         }
 
-// Page navigation
         function showPage(pageId) {
-            // Hide all pages
             const pages = document.querySelectorAll('.page');
             pages.forEach(page => page.classList.remove('active'));
             
-            // Remove active class from all nav links
             const navLinks = document.querySelectorAll('.nav-link');
             navLinks.forEach(link => link.classList.remove('active'));
             
-            // Show selected page
             document.getElementById(pageId).classList.add('active');
             
-            // Add active class to appropriate nav link
             const targetNavLink = document.querySelector(`[onclick="showPage('${pageId}')"]`);
             if (targetNavLink) {
                 targetNavLink.classList.add('active');
             }
             
-            // 只有在不是文章頁面時，才更新當前的分類
             if (pageId !== 'article-view') {
                 currentCategory = pageId;
             }
             
-            // Load articles for the page
             if (pageId !== 'home' && pageId !== 'article-view') {
                 loadArticlesForCategory(pageId);
             }
         }
 
-        // Load articles for a specific category
         function loadArticlesForCategory(category) {
             const articles = postsRegistry[category] || [];
-            const container = document.getElementById(`${category}-articles`);
+            const containerId = `${category}-articles`;
+            const container = document.getElementById(containerId);
             
             if (!container) {
                 console.error(`Container not found for category: ${category}`);
@@ -858,7 +643,7 @@
             }
             
             container.innerHTML = articles.map(article => `
-                <div class="article-card" onclick="loadArticle('${article.id}')" data-tags="${article.tags.join(',')}" data-date="${article.date}">
+                <div class="article-card" onclick="loadArticle('${article.id}')">
                     <h3 class="article-title">${article.title}</h3>
                     <div class="article-meta">
                         <span>${article.date}</span>
@@ -873,9 +658,7 @@
             `).join('');
         }
 
-        // Load individual article
         async function loadArticle(articleId) {
-            // Find the article in the registry
             let article = null;
             let categoryArticles = [];
             
@@ -884,7 +667,7 @@
                 if (found) {
                     article = found;
                     categoryArticles = articles;
-                    currentCategory = category;
+                    // Do not change currentCategory here, it was set when entering the category page
                     break;
                 }
             }
@@ -897,10 +680,8 @@
             currentArticle = article;
             currentArticleIndex = categoryArticles.indexOf(article);
             
-            // Show article page
             showPage('article-view');
             
-            // Update page content
             document.getElementById('article-title').textContent = article.title;
             document.getElementById('article-meta').innerHTML = `
                 <span>${article.date}</span>
@@ -910,126 +691,32 @@
             document.getElementById('article-tags-display').innerHTML = 
                 article.tags.map(tag => `<span class="tag">${tag}</span>`).join('');
             
-            // Update navigation buttons
             const backButton = document.getElementById('back-button');
             backButton.textContent = `回${getCategoryDisplayName(article.category)}首頁`;
             
             const prevButton = document.getElementById('prev-button');
             const nextButton = document.getElementById('next-button');
             
-            if (currentArticleIndex > 0) {
-                prevButton.classList.remove('disabled');
-                prevButton.onclick = () => navigateArticle('prev');
-            } else {
-                prevButton.classList.add('disabled');
-                prevButton.onclick = null;
-            }
+            prevButton.classList.toggle('disabled', currentArticleIndex <= 0);
+            prevButton.onclick = (currentArticleIndex > 0) ? () => navigateArticle('prev') : null;
             
-            if (currentArticleIndex < categoryArticles.length - 1) {
-                nextButton.classList.remove('disabled');
-                nextButton.onclick = () => navigateArticle('next');
-            } else {
-                nextButton.classList.add('disabled');
-                nextButton.onclick = null;
-            }
+            nextButton.classList.toggle('disabled', currentArticleIndex >= categoryArticles.length - 1);
+            nextButton.onclick = (currentArticleIndex < categoryArticles.length - 1) ? () => navigateArticle('next') : null;
             
-            // Load article content from posts folder
             try {
                 const response = await fetch(`posts/${article.filename}`);
                 if (response.ok) {
                     const content = await response.text();
                     document.getElementById('article-content').innerHTML = content;
                 } else {
-                    // Fallback for demo - in real implementation, this would load from posts
-                    document.getElementById('article-content').innerHTML = getDemoArticleContent(articleId);
+                    document.getElementById('article-content').innerHTML = `<div class="error">文章內容載入失敗 (posts/${article.filename})。</div>`;
                 }
             } catch (error) {
                 console.error('Error loading article:', error);
-                // Fallback content for demo
-                document.getElementById('article-content').innerHTML = getDemoArticleContent(articleId);
+                document.getElementById('article-content').innerHTML = `<div class="error">載入文章時發生錯誤。</div>`;
             }
         }
 
-        // Get demo article content (replace with actual file loading)
-        function getDemoArticleContent(articleId) {
-            if (articleId === '2025-03-27-korean-microsushi') {
-                return `
-                    <h3>▋永續以及未來食物</h3>
-                    <p>根據聯合國網站，永續食物(sustainable food system, SFS)分為三個面向：</p>
-                    <ul style="margin-left: 20px; margin-bottom: 15px;">
-                        <li><strong>經濟永續(Economic sustainability)：</strong>可以賺錢，有足夠的食物等等。</li>
-                        <li><strong>社會永續(Social sustainability)：</strong>對社會有益，包括勞工權益和動物福祉等等。</li>
-                        <li><strong>環境永續(Environmental sustainability)：</strong>和對環境的影響很低，或是有正面影響。</li>
-                    </ul>
-                    <p>由於永續議題興起，有些食材和食物開始流行了起來，包括植物肉、培養肉之類的替代性蛋白質等等。</p>
-                    
-                    <p>替代性蛋白質中，較有名的大概是 Beyond Meat，可能有人以為這是培養肉(cultured meat)，但其實它是植物性肉類(plant-based meat)。目前上市的培養肉公司有 UPSIDE Food 和 GOOD Meat，培養肉市場預估在 2034 年的時候可達到 $1.1B 美元。</p>
-                    
-                    <p>除了培養肉和植物性肉類外，另一個則是昆蟲類蛋白質(insect-derived proteins)，市面上販售的主要是蟋蟀相關產品，例如蟋蟀蛋白粉或是蟋蟀能量棒等等。</p>
-                    
-                    <p>我覺得比較特別的是 3D 列印食物(3D-printed foods)，其中一家公司 Foodini 是採用訂閱制，可以跟它租 3D 列印的機器，每個月 $580 美元，如果租的時間就長，每月的費用就比單月租少，在日本等等沒有提供月租制的國家則是可以直接買機器。</p>
-
-                    <h3>▋微壽司 — 另類培養肉</h3>
-                    <p>雖然培養肉算是個熱門議題，也有不少公司在做培養肉，之前韓劇「支配物種」就是講關於培養肉的。</p>
-                    
-                    <p>不過，培養出一整塊的牛肉太麻煩又太費時了，韓國延世大學的研究團隊研發了一款富含蛋白質的「微牛肉壽司」，直接用牛肉細胞去包裹米粒。除了牛肉細胞、還可以用其他細胞，看你想吃啥就用什麼細胞去包米。</p>
-                    
-                    <p>他們首先用魚的膠質裹住米粒，然後鋪在培養皿中，再把牛的肌肉細胞和脂肪細胞丟進去，讓它們附著在米粒表面生長，也試了不同種類的細胞。之後，測量了這種微壽司的營養成分，結果是每吃 100 公克的微壽司相當於吃進 100 克的米和 1 克的牛肉。</p>
-
-                    <h3>🌾 米的準備</h3>
-                    <p>他們用米是韓國本地產的，把魚膠溶液和轉谷氨酰胺酶以 1:1 的比例混合後，在 45°C 的溫度下攪拌 15 分鐘，然後把米加進去再攪拌 5 分鐘，在常溫下靜置 10 分鐘，把冰在冰箱 12 個小時。</p>
-                    
-                    <p>基於永續的因素，他們選擇魚類的膠質而非動物的，魚類的比較便宜但是相對比較不穩定。轉谷氨酰胺酶(microbial transglutaminase)是用日本味之素(Ajinomoto)出產的，是個常見的食品添加酵素，可以把膠質中 glutamine 和 lysine 側鏈之間形成共價鍵，同時也可以幫助澱粉和膠之間的結合，並增強米的穩定度。</p>
-
-                    <h3>🧫 肉的培養和分化</h3>
-                    <p>牛細胞的來源是 29-31 個月大的韓牛肌肉和脂肪。</p>
-                    
-                    <p>消毒過的米粒放在培養盤中，然後分別把 myoblast 和 adMSCs 細胞加進去，先培養 18 個小時讓細胞黏著在米粒上後，轉移到新的培養皿中再養個 5 到 7 天讓它增生，每天換培養液，之後讓它分化。</p>
-                    
-                    <ul style="margin-left: 20px; margin-bottom: 15px;">
-                        <li>肌肉培養成 myoblast，然後分化成 myotubes 或是 myofibres</li>
-                        <li>脂肪組織培養成 adMSCs，然後分化成脂肪細胞(adipocyte)</li>
-                    </ul>
-                    
-                    <p>細胞分化好後，把包覆有分化細胞的米粒洗一洗以去掉培養液和一些雜質，接著把水倒掉，加入兩倍的水，微波 2 分鐘，常溫 5 分鐘，再重複一次。</p>
-
-                    <h3>🍣 微壽司的營養成分</h3>
-                    <p>在比較了不同細胞和培養條件後，他們發現：</p>
-                    <ul style="margin-left: 20px; margin-bottom: 15px;">
-                        <li>細胞在有魚膠包覆的米粒上分化的比較好：米在潮濕的環境或是放久了，會因為米本身的酵素導致結構崩壞，變得粉粉或爛爛的，但是魚膠包裹後形成的連結(bonding)會增加結構穩定性。</li>
-                        <li>myoblast 在有魚膠包覆的米粒上繁殖的比較好，細胞的密度比較高，adMSC 則沒太大差別。</li>
-                        <li>肌肉細胞裡 actin 和 mysoin 加熱後會因為 denature 的關係，口感會比較硬和脆，因為澱粉鍊較短，所以也比較不黏。</li>
-                        <li>微壽司所含的碳水化合物、蛋白質和脂肪都比純米要高，碳水化合物多了 0.16 g，蛋白質多了 310 mg，脂肪則多了 10 mg。</li>
-                    </ul>
-                    
-                    <p>價格上的話，他們估計這種微壽司米每公斤的批發價只會比普通米貴 $0.03 美元。</p>
-                    
-                    <p><strong>大家會想直接吃肉配飯，還是會想吃這種微壽司呢？</strong></p>
-                    
-                    <hr style="margin: 24px 0; border: none; border-top: 1px solid #d0d7de;">
-                    
-                    <h3>📚 參考資料</h3>
-                    <p><strong>Articles:</strong></p>
-                    <p><a href="https://openknowledge.fao.org/server/api/core/bitstreams/b620989c-407b-4caf-a152-f790f55fec71/content" target="_blank">Sustainable food systems - FAO</a></p>
-                    <p><a href="https://www.nature.com/articles/d41586-024-00398-w" target="_blank">Introducing meat–rice: grain with added muscles beefs up protein - Nature</a></p>
-                    <p><a href="https://www.science.org/content/article/rice-covered-cow-cells-aims-provide-nutritious-sustainable-food" target="_blank">Rice covered in cow cells aims to provide nutritious, sustainable food - Science</a></p>
-                    
-                    <p><strong>Publication:</strong></p>
-                    <p>S Park, M Lee, S Jung et al. Rice grains integrated with animal cells: A shortcut to a sustainable food system. Matter (2024)<br>
-                    DOI: <a href="https://www.cell.com/matter/abstract/S2590-2385%2824%2900016-X" target="_blank">10.1016/j.matt.2024.01.015</a></p>
-                `;
-            }
-            
-            // Default fallback for other articles
-            return `
-                <div class="error">
-                    <h3>文章內容暫未提供</h3>
-                    <p>此文章的完整內容尚未建立。請在 posts/${articleId}.html 中新增內容。</p>
-                </div>
-            `;
-        }
-
-        // Navigate between articles
         function navigateArticle(direction) {
             if (!currentArticle) return;
             
@@ -1038,9 +725,9 @@
             
             let newIndex = currentArticleIndex;
             if (direction === 'prev' && currentArticleIndex > 0) {
-                newIndex = currentArticleIndex - 1;
+                newIndex--;
             } else if (direction === 'next' && currentArticleIndex < categoryArticles.length - 1) {
-                newIndex = currentArticleIndex + 1;
+                newIndex++;
             }
             
             if (newIndex !== currentArticleIndex) {
@@ -1048,7 +735,6 @@
             }
         }
 
-        // Go back to category page
         function goBackToCategory() {
             if (currentCategory && currentCategory !== 'home') {
                 showPage(currentCategory);
@@ -1057,147 +743,20 @@
             }
         }
 
-        // Get display name for category
         function getCategoryDisplayName(category) {
             const names = {
                 'research': '研究發現',
                 'industry-news': '業界新聞',
                 'biotech-companies': '生技藥廠公司文',
-                'careers': '職涯相關',
-                'life-chat': '生活閒聊'
+                'career': '職涯相關',
+                'life-chat': '生活閒聊',
+                'data-analysis': 'Data Analysis'
             };
             return names[category] || category;
         }
 
-        // Filter functionality
-        function filterByTag(type, value) {
-            console.log(`Filtering by ${type}: ${value}`);
-            
-            const categoryArticles = postsRegistry[currentCategory] || [];
-            const container = document.getElementById(`${currentCategory}-articles`);
-            
-            if (!container) return;
-            
-            // Toggle active state on clicked tag
-            const clickedTag = event.target;
-            const isActive = clickedTag.classList.contains('active');
-            
-            // Remove active from all tags in the same group
-            const parentGroup = clickedTag.closest('.filter-group');
-            const tags = parentGroup.querySelectorAll('.tag');
-            tags.forEach(tag => tag.classList.remove('active'));
-            
-            if (!isActive) {
-                clickedTag.classList.add('active');
-                
-                // Create filter mapping for better matching
-                const filterMapping = {
-                    // Research area filters
-                    'cultured-meat': ['培養肉', '細胞培養', '人造肉'],
-                    'biotechnology': ['生物技術', '生技', 'biotech'],
-                    'genetics': ['基因學', '基因', '遺傳學', 'CRISPR', '基因編輯'],
-                    'immunology': ['免疫學', '免疫', '疫苗'],
-                    'neuroscience': ['神經科學', '神經', '阿茲海默', '腦'],
-                    'oncology': ['腫瘤學', '癌症', '腫瘤'],
-                    
-                    // Company filters  
-                    'pfizer': ['Pfizer', 'pfizer', '輝瑞'],
-                    'moderna': ['Moderna', 'moderna', '莫德納'],
-                    'roche': ['Roche', 'roche', '羅氏'],
-                    'novartis': ['Novartis', 'novartis', '諾華'],
-                    'johnson-johnson': ['Johnson & Johnson', 'J&J', '嬌生'],
-                    
-                    // Drug type filters
-                    'covid-vaccine': ['COVID疫苗', 'covid', 'coronavirus', '新冠疫苗'],
-                    'cancer-drug': ['癌症藥物', '抗癌藥', '腫瘤藥物'],
-                    'diabetes-drug': ['糖尿病藥物', '胰島素'],
-                    'alzheimer-drug': ['阿茲海默症藥物', '失智症藥物'],
-                    
-                    // Disease filters
-                    'cancer': ['癌症', '腫瘤', '惡性腫瘤'],
-                    'diabetes': ['糖尿病', '胰島素'],
-                    'alzheimer': ['阿茲海默', '失智症', '認知症'],
-                    'covid': ['COVID', 'covid', '新冠', 'coronavirus']
-                };
-                
-                // Filter articles by tag
-                const filteredArticles = categoryArticles.filter(article => {
-                    const searchTerms = filterMapping[value] || [value];
-                    return article.tags.some(tag => 
-                        searchTerms.some(term => 
-                            tag.toLowerCase().includes(term.toLowerCase()) ||
-                            term.toLowerCase().includes(tag.toLowerCase())
-                        )
-                    );
-                });
-                
-                displayFilteredArticles(filteredArticles, container);
-            } else {
-                // Show all articles if tag is deactivated
-                displayFilteredArticles(categoryArticles, container);
-            }
-        }
-
-        // Display filtered articles
-        function displayFilteredArticles(articles, container) {
-            if (articles.length === 0) {
-                container.innerHTML = '<p style="text-align: center; color: #656d76; padding: 40px;">沒有符合條件的文章</p>';
-                return;
-            }
-            
-            container.innerHTML = articles.map(article => `
-                <div class="article-card" onclick="loadArticle('${article.id}')" data-tags="${article.tags.join(',')}" data-date="${article.date}">
-                    <h3 class="article-title">${article.title}</h3>
-                    <div class="article-meta">
-                        <span>${article.date}</span>
-                        <span>${getCategoryDisplayName(article.category)}</span>
-                        ${article.readTime ? `<span>${article.readTime}</span>` : ''}
-                    </div>
-                    <p class="article-summary">${article.summary}</p>
-                    <div class="article-tags">
-                        ${article.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        // Sort functionality
-        function sortByDate(order) {
-            console.log(`Sorting by date: ${order}`);
-            
-            const categoryArticles = postsRegistry[currentCategory] || [];
-            const container = document.getElementById(`${currentCategory}-articles`);
-            
-            if (!container) return;
-            
-            // Toggle active state on tags
-            const clickedTag = event.target;
-            const parentGroup = clickedTag.closest('.filter-group');
-            const tags = parentGroup.querySelectorAll('.tag');
-            tags.forEach(tag => tag.classList.remove('active'));
-            clickedTag.classList.add('active');
-            
-            // Sort articles
-            const sortedArticles = [...categoryArticles].sort((a, b) => {
-                const dateA = new Date(a.date);
-                const dateB = new Date(b.date);
-                
-                if (order === 'newest') {
-                    return dateB - dateA; // Newest first
-                } else {
-                    return dateA - dateB; // Oldest first
-                }
-            });
-            
-            displayFilteredArticles(sortedArticles, container);
-        }
-
-        // Initialize the page
-        document.addEventListener('DOMContentLoaded', function() {
-            // Load posts registry (now synchronous)
-            loadPostsRegistry();
-            
-            // Then show the home page
+        document.addEventListener('DOMContentLoaded', async function() {
+            await loadPostsRegistry();
             showPage('home');
         });
     </script>
