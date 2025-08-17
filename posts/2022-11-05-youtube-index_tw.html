@@ -4,11 +4,35 @@
 
 <h3>資料集</h3>
 <p>資料來源為 <a href="https://www.kaggle.com/datasets/datasnaek/youtube-new" target="_blank" rel="noopener noreferrer">Trending YouTube Video Statistics</a>，裡面有美國、英國、德國、加拿大、法國等等的發燒影片數據，每天會更新。</p>
-<p><strong>使用的資料集：</strong></p>
-<ul>
-  <li>USvideos.csv</li>
-  <li>CAvideos.csv</li>
-</ul>
+<p><strong>資料分類：</strong></p>
+        /* --- ↓↓↓ 新增的表格樣式 ↓↓↓ --- */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 24px 0;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #d0d7de;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f6f8fa;
+            font-weight: 600;
+        }
+        /* --- ↑↑↑ 新增的表格樣式 ↑↑↑ --- */
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+            
+            /* --- 省略部分程式碼，保持不變 --- */
+        }
+    </style>
 
 <h3>分析工具</h3>
 <ul>
