@@ -22,27 +22,27 @@
       "date": "2022-11-05",
       "category": "data-analysis",
       "tags": ["YouTube", "R", "data analysis"],
-      "summary": "這是 YouTube 數據分析系列文章的索引頁面，介紹了專案的動機、使用的資料集，並提供了系列中其他分析文章的連結。",
+      "summary": "This is the index page for the YouTube data analysis series, introducing the motivation, dataset, and links to other analysis articles in the series.",
       "readTime": "3 min read",
       "filename": "2022-11-05-youtube-index.html"
     },
     {
       "id": "2022-10-16-yt-us-trending",
-      "title": "美國 YouTube 發燒影片分析",
+      "title": "US YouTube Trending Video Analysis",
       "date": "2022-10-16",
       "category": "data-analysis",
       "tags": ["YouTube", "R", "data analysis"],
-      "summary": "使用 R 語言分析美國 YouTube 發燒影片的數據，探討影片的觀看次數、喜歡、不喜歡和評論數之間的關係，以及哪些頻道的影片最常登上發燒列表。",
+      "summary": "An analysis of US YouTube trending video data using R, exploring the relationships between views, likes, dislikes, and comments, and identifying top trending channels.",
       "readTime": "10 min read",
       "filename": "2022-10-16-yt-us-trending.html"
     },
     {
       "id": "2022-10-20-yt-ca-trending",
-      "title": "加拿大 YouTube 發燒影片分析",
+      "title": "Canada YouTube Trending Video Analysis",
       "date": "2022-10-20",
       "category": "data-analysis",
       "tags": ["YouTube", "R", "data analysis"],
-      "summary": "使用 R 語言分析加拿大 YouTube 發燒影片的數據，並與美國的數據進行比較，找出兩個國家在影片趨勢上的相似與不同之處。",
+      "summary": "An analysis of Canadian YouTube trending video data using R, comparing the findings with US data to identify similarities and differences in video trends.",
       "readTime": "12 min read",
       "filename": "2022-10-20-yt-ca-trending.html"
     }
