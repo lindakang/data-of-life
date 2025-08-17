@@ -1,10 +1,22 @@
+好的，這個問題是我的疏失，非常抱歉！
+
+您完全說對了，問題出在我之前提供給您的 `index.html` 程式碼上。為了讓程式碼看起來簡潔一些，我錯誤地將您首頁和其他分類頁面的內容，用 "..." 省略了，但我卻請您用這個不完整的版本**完全取代**您原本的檔案。
+
+這導致您原本的首頁歡迎訊息等內容全部遺失了。這是一個嚴重的錯誤，我很抱歉造成您的困擾。
+
+### 最終的、完整的 `index.html` 修正版
+
+請您使用下面這份**完整且包含所有頁面內容**的程式碼，再一次**完全取代**您現有的 `index.html` 檔案。這份程式碼恢復了所有被 "..." 取代的內容，並且包含了我們之前完成的所有升級（例如支援 Markdown 的 Marked.js 功能）。
+
+```html
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>不專業學術閒聊 - 生科社畜的科學閒聊</title>
-    <meta name="description" content="這邊會寫一些我覺得有趣的科學新聞、值得關注的業界新聞，或是我有興趣的公司介紹文，不然就是一些生活閒聊。" />
+    <meta name="description" content="這邊會寫一些我覺得有趣的科學新聞、值得關注的業界新聞,或是我有興趣的公司介紹文,不然就是一些生活閒聊。" />
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -273,46 +285,73 @@
             color: #24292f;
         }
 
-        .article-content h3 {
+        .article-content h1, .article-content h2, .article-content h3 {
             color: #0969da;
-            margin-top: 32px;
+            margin-top: 24px;
             margin-bottom: 16px;
-            font-size: 20px;
+            border-bottom: 1px solid #d0d7de;
+            padding-bottom: 8px;
         }
-
         .article-content p {
             margin-bottom: 16px;
         }
-
         .article-content ul {
             margin-bottom: 16px;
         }
-
         .article-content li {
             margin-bottom: 8px;
         }
-
         .article-content a {
             color: #0969da;
             text-decoration: none;
         }
-
         .article-content a:hover {
             text-decoration: underline;
         }
-
         .article-content hr {
             margin: 24px 0;
             border: none;
             border-top: 1px solid #d0d7de;
         }
-        
+        .article-content code {
+            background-color: #f6f8fa;
+            padding: .2em .4em;
+            margin: 0;
+            font-size: 85%;
+            border-radius: 6px;
+        }
+        .article-content pre {
+            background-color: #f6f8fa;
+            padding: 16px;
+            overflow: auto;
+            line-height: 1.45;
+            border-radius: 6px;
+        }
+        .article-content pre code {
+            padding: 0;
+            margin: 0;
+            font-size: 100%;
+            background-color: transparent;
+        }
+        .article-content table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            margin: 16px 0;
+        }
+        .article-content th, .article-content td {
+            padding: 8px;
+            border: 1px solid #ddd;
+        }
+        .article-content th {
+            background-color: #f2f2f2;
+        }
+
         /* Image Container Styles */
         .image-container {
             margin: 24px 0;
             text-align: center;
         }
-
         .image-container img {
             max-width: 100%;
             height: auto;
@@ -320,14 +359,12 @@
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
             border: 1px solid #d0d7de;
         }
-
         .image-caption {
             font-size: 14px;
             color: #656d76;
             margin-top: 8px;
             font-style: italic;
         }
-        
         .img-small {
             width: 50%;
             margin-left: auto;
@@ -584,7 +621,6 @@
     </div>
 
     <script>
-        // Posts registry - try to load from external file, fallback to embedded data
         let postsRegistry = {};
         let currentCategory = 'home';
         let currentArticle = null;
@@ -600,7 +636,10 @@
                 console.log('Posts registry loaded successfully');
             } catch (error) {
                 console.error('Could not load posts.json:', error);
-                document.querySelector('.main-content').innerHTML = '<div class="error">無法載入文章列表 (posts.json)，請檢查檔案是否存在且格式正確。</div>';
+                const mainContent = document.querySelector('.main-content');
+                if (mainContent) {
+                    mainContent.innerHTML = '<div class="error">無法載入文章列表 (posts.json)，請檢查檔案是否存在且格式正確。</div>';
+                }
             }
         }
 
@@ -667,7 +706,6 @@
                 if (found) {
                     article = found;
                     categoryArticles = articles;
-                    // Do not change currentCategory here, it was set when entering the category page
                     break;
                 }
             }
@@ -703,17 +741,26 @@
             nextButton.classList.toggle('disabled', currentArticleIndex >= categoryArticles.length - 1);
             nextButton.onclick = (currentArticleIndex < categoryArticles.length - 1) ? () => navigateArticle('next') : null;
             
+            const contentContainer = document.getElementById('article-content');
+            
             try {
                 const response = await fetch(`posts/${article.filename}`);
-                if (response.ok) {
-                    const content = await response.text();
-                    document.getElementById('article-content').innerHTML = content;
-                } else {
-                    document.getElementById('article-content').innerHTML = `<div class="error">文章內容載入失敗 (posts/${article.filename})。</div>`;
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
                 }
+                
+                const rawContent = await response.text();
+                
+                if (article.filename.endsWith('.md')) {
+                    const contentWithoutFm = rawContent.replace(/---[\s\S]*?---/, '').trim();
+                    contentContainer.innerHTML = marked.parse(contentWithoutFm);
+                } else {
+                    contentContainer.innerHTML = rawContent;
+                }
+
             } catch (error) {
                 console.error('Error loading article:', error);
-                document.getElementById('article-content').innerHTML = `<div class="error">載入文章時發生錯誤。</div>`;
+                contentContainer.innerHTML = `<div class="error">載入文章時發生錯誤。</div>`;
             }
         }
 
@@ -762,3 +809,4 @@
     </script>
 </body>
 </html>
+```
